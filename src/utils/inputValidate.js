@@ -1,6 +1,6 @@
 const errorMessage = {
   required: (label = "此欄位") => `${label}為必填項目`,
-  email: "請輸入有效的電子郵件",
+  email: "請輸入有效的電子信箱",
 };
 
 const validateRules = {
@@ -16,7 +16,14 @@ export const getErrorMessage = (rule, label) =>
     ? errorMessage[rule](label)
     : errorMessage[rule];
 
-export function inputValidate({ label, value, rules = [], allError = false }) {
+export const inputValidate = ({
+  label,
+  value,
+  rules = [],
+  allError = false,
+}) => {
+  if (!rules.length) return "";
+
   let error = allError ? {} : "";
 
   if (allError) {
@@ -47,7 +54,20 @@ export function inputValidate({ label, value, rules = [], allError = false }) {
   }
 
   return error;
-}
+};
+
+export const formatInputAndValidateOptions = (inputObj, validateOptions) =>
+  Object.keys(inputObj).reduce(
+    (inputValidateOptions, name) => [
+      ...inputValidateOptions,
+      {
+        ...validateOptions[name],
+        name,
+        value: inputObj[name],
+      },
+    ],
+    []
+  );
 
 // const email = {
 //   label: "簽署人姓名",

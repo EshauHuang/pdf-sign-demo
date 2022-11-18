@@ -18,23 +18,43 @@ export const SvgButtonBase = styled.button`
   ${(props) => props.style}
 `;
 
-export const SvgButton = ({ component, size, variant, style }) => {
+export const SvgButton = ({
+  component,
+  type = "button",
+  size,
+  variant,
+  style,
+}) => {
   const svgVariant = variant
     ? `svg${capitalizeFirstLetter(variant)}`
     : undefined;
 
   const svgSize = size ? `svg${capitalizeFirstLetter(size)}` : undefined;
   return (
-    <SvgButtonBase size={svgSize} variant={svgVariant} style={style}>
+    <SvgButtonBase
+      type={type}
+      size={svgSize}
+      variant={svgVariant}
+      style={style}
+    >
       {component}
     </SvgButtonBase>
   );
 };
 
-const Button = ({ children, size, variant, fStyle, className, disabled }) => {
+const Button = ({
+  children,
+  type = "button",
+  size,
+  variant,
+  fStyle,
+  className,
+  disabled,
+}) => {
   return (
     <ButtonBase
       className={`${className ? className : ""}`}
+      type={type}
       fStyle={fStyle}
       size={size}
       variant={variant}

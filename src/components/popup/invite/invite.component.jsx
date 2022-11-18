@@ -5,7 +5,10 @@ import InputField from "@/components/input-field/input-field.component";
 import { SvgButton } from "@/components/button/button.component";
 import { ReactComponent as CloseIcon } from "@/assets/icon/close.svg";
 
-import { inputValidate } from "@/utils/inputValidate";
+import {
+  inputValidate,
+  formatInputAndValidateOptions,
+} from "@/utils/inputValidate";
 
 import {
   Container,
@@ -27,10 +30,24 @@ const initialInvitePersonDetail = {
   lastName: "",
 };
 
+const validateRulesOptions = {
+  email: {
+    label: "電子信箱",
+    rules: ["required", "email"],
+  },
+  firstName: {},
+  lastName: {
+    label: "簽署人姓名",
+    rules: ["required"],
+  },
+};
+
 const PopupBox = () => {
   const [invitePersonDetail, setInvitePersonDetail] = useState(
     initialInvitePersonDetail
   );
+
+  const [errorMessage, setErrorMessage] = useState(initialInvitePersonDetail);
 
   useEffect(() => {
     return () => {
@@ -38,9 +55,21 @@ const PopupBox = () => {
     };
   }, []);
 
-  const handleSubmit = () => {
-    
-  }
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const inputValidateOptions = formatInputAndValidateOptions(
+      invitePersonDetail,
+      validateRulesOptions
+    );
+
+    const newErrorMessage = inputValidateOptions.reduce((errorObj, option) => {
+      const { name } = option;
+      return { ...errorObj, [name]: inputValidate(option) };
+    }, {});
+
+    setErrorMessage(newErrorMessage);
+  };
 
   return (
     <Container onSubmit={(e) => handleSubmit(e)}>
@@ -79,7 +108,7 @@ const PopupBox = () => {
           />
         </NameField>
         <ButtonWrap>
-          <StyledButton size="large" variant="primary" disabled>
+          <StyledButton type="submit" size="large" variant="primary">
             儲存
           </StyledButton>
         </ButtonWrap>
