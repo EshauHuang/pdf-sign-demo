@@ -1,9 +1,11 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
+import Button from "@/components/button/button.component";
+
 export const StyleLink = styled(Link)`
   width: 100%;
-`
+`;
 
 export const Container = styled.div`
   display: flex;
@@ -35,7 +37,7 @@ export const Captions = styled.h5`
   text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 `;
 
-export const buttonStyle = {
-  width: "100%",
-  margin: "0.8rem 0 1.6rem",
-};
+export const StyledButton = styled(Button)`
+  width: 100%;
+  margin: 0.8rem 0 1.6rem;
+`;

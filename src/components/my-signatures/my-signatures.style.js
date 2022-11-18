@@ -1,9 +1,11 @@
 import styled from "styled-components";
+
+import Button from "@/components/button/button.component";
 import { ReactComponent as AddIcon } from "@/assets/icon/add.svg";
 
-export const buttonStyle = {
-  width: "28rem",
-};
+export const StyledButton = styled(Button)`
+  width: 28rem;
+`;
 
 export const Title = styled.h5`
   color: ${({ theme }) => theme.colors.darkGrey};

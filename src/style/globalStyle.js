@@ -6,6 +6,7 @@ body {
   margin: 0;
   height: 100%;
   font-size: 62.5%;
+  font-family: "Chenyuluoyan-Monospaced",  "Chenyuluoyan Noto-Serif-TC";
 }
 
 canvas,
@@ -99,10 +100,17 @@ a {
 }
 
   @font-face {
-    font-family: 'ChenYuluoyan-thin';
+    font-family: 'Chenyuluoyan-Monospaced';
+    src: url("../assets/font/ChenYuluoyan-Thin-Monospaced.ttf") format("truetype");
+    font-style: normal;
+    font-weight: 400;
+  }
+
+  @font-face {
+    font-family: 'Chenyuluoyan';
     src: url("../assets/font/ChenYuluoyan-Thin.ttf") format("truetype");
     font-style: normal;
-    font-weight: 100;
+    font-weight: 400;
   }
 
   @font-face {

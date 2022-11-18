@@ -1,11 +1,10 @@
-import Button from "@/components/button/button.component";
 import {
   Container,
   Body,
   AddFileImg,
   SubCaptions,
   Captions,
-  buttonStyle,
+  StyledButton,
   StyleLink,
 } from "./upload-file.style";
 
@@ -18,7 +17,7 @@ const UploadFile = () => {
         <AddFileImg src={addFile} />
         <SubCaptions>將檔案拖曳至這裡，或</SubCaptions>
         <StyleLink to="signature">
-          <Button style={buttonStyle}>選擇檔案</Button>
+          <StyledButton>選擇檔案</StyledButton>
         </StyleLink>
         <Captions>檔案大小10Mb以內，檔案格式為PDF、IMG</Captions>
       </Body>

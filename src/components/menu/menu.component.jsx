@@ -61,7 +61,7 @@ const Menu = () => {
           <FileName>型號U-ew8951出貨單</FileName>
           <Link
             to={{
-              pathname: "/rename",
+              pathname: "rename",
               state: { background: location },
             }}
           >

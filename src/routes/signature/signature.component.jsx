@@ -1,5 +1,6 @@
 import { useState } from "react";
 import styled from "styled-components";
+import { Outlet, Link } from "react-router-dom";
 
 import { ReactComponent as PersonAddIcon } from "@/assets/icon/person-add.svg";
 
@@ -72,9 +73,9 @@ const InvitedSignatures = () => {
   );
 };
 
-const buttonStyle = {
-  width: "100%",
-};
+const StyledButton = styled(Button)`
+  width: 100%;
+`;
 
 const SignatureSetting = () => {
   return (
@@ -82,11 +83,13 @@ const SignatureSetting = () => {
       <SignatureSettingTop>
         <PersonalForm />
         <MySignatures />
-        <InvitedSignatures />
+        <Link to="invite">
+          <InvitedSignatures />
+        </Link>
       </SignatureSettingTop>
-      <Button style={buttonStyle} size="large" variant="primary" disabled>
+      <StyledButton size="large" variant="primary" disabled>
         下一步
-      </Button>
+      </StyledButton>
     </SignatureSettingContainer>
   );
 };
@@ -106,6 +109,7 @@ const Signature = () => {
         <DocumentShow />
         <SignatureSetting />
       </Body>
+      <Outlet />
     </SignatureContainer>
   );
 };
