@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import Button from "@/components/button/button.component";
+import InputField from "@/components/input-field/input-field.component";
 
 export const PopupMask = styled.div`
   position: fixed;
@@ -64,3 +65,15 @@ export const StyledButton = styled(Button)`
   width: 10.2rem;
   height: 3.8rem;
 `;
+
+export const NameField = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  margin-top: 3.2rem;
+`;
+
+export const StyledInputFiled = styled(InputField)`
+  width: calc((100% - 0.8rem) / 2);
+`;
+

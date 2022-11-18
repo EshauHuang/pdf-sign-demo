@@ -54,9 +54,11 @@ const InvitedSignatures = () => {
   return (
     <Container>
       <Title>邀請簽署人</Title>
-      <SvgButtonPos>
-        <SvgButton component={<PersonAddIcon />} />
-      </SvgButtonPos>
+      <Link to="invite">
+        <SvgButtonPos>
+          <SvgButton component={<PersonAddIcon />} />
+        </SvgButtonPos>
+      </Link>
       <ToggleBarSection
         toggle={isOrder}
         setToggle={setIsOrder}
@@ -83,9 +85,7 @@ const SignatureSetting = () => {
       <SignatureSettingTop>
         <PersonalForm />
         <MySignatures />
-        <Link to="invite">
-          <InvitedSignatures />
-        </Link>
+        <InvitedSignatures />
       </SignatureSettingTop>
       <StyledButton size="large" variant="primary" disabled>
         下一步

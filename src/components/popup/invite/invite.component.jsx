@@ -1,8 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import styled from "styled-components";
 
-import AddSign from "@/components/add-sign/add-sign.component";
 import InputField from "@/components/input-field/input-field.component";
 import { SvgButton } from "@/components/button/button.component";
 import { ReactComponent as CloseIcon } from "@/assets/icon/close.svg";
@@ -17,22 +15,9 @@ import {
   ButtonWrap,
   PopupMask,
   StyledButton,
+  NameField,
+  StyledInputFiled,
 } from "./invite.style";
-
-const InvitedPersonForm = styled.form`
-  width: 100%;
-`;
-
-const NameField = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-  margin-top: 3.2rem;
-`;
-
-const StyledInputFiled = styled(InputField)`
-  width: calc((100% - 0.8rem) / 2);
-`;
 
 const initialInvitePersonDetail = {
   email: "",
@@ -44,8 +29,6 @@ const PopupBox = () => {
   const [invitePersonDetail, setInvitePersonDetail] = useState(
     initialInvitePersonDetail
   );
-
-  console.log(invitePersonDetail);
 
   useEffect(() => {
     return () => {
