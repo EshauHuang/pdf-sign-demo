@@ -5,6 +5,8 @@ import InputField from "@/components/input-field/input-field.component";
 import { SvgButton } from "@/components/button/button.component";
 import { ReactComponent as CloseIcon } from "@/assets/icon/close.svg";
 
+import { inputValidate } from "@/utils/inputValidate";
+
 import {
   Container,
   SvgButtonPos,
@@ -36,8 +38,12 @@ const PopupBox = () => {
     };
   }, []);
 
+  const handleSubmit = () => {
+    
+  }
+
   return (
-    <Container>
+    <Container onSubmit={(e) => handleSubmit(e)}>
       <SvgButtonPos>
         <Link to="/signature">
           <SvgButton variant="secondary" component={<CloseIcon />} />

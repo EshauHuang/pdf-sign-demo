@@ -11,7 +11,7 @@ export const PopupMask = styled.div`
   background-color: ${({ theme }) => theme.colors.mask};
 `;
 
-export const Container = styled.div`
+export const Container = styled.form`
   position: absolute;
   top: 50%;
   left: 50%;
