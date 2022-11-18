@@ -19,8 +19,9 @@ export const svgMedium = css`
 `;
 
 export const svgSmall = css`
-  width: 3.2rem;
-  height: 3.2rem;
+  width: 2.4rem;
+  height: 2.4rem;
+  padding: 0;
 `;
 
 export const svgButtonBase = css`

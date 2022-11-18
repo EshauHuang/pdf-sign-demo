@@ -20,6 +20,7 @@ export const SvgButtonBase = styled.button`
 
 export const SvgButton = ({
   component,
+  className,
   type = "button",
   size,
   variant,
@@ -32,6 +33,7 @@ export const SvgButton = ({
   const svgSize = size ? `svg${capitalizeFirstLetter(size)}` : undefined;
   return (
     <SvgButtonBase
+      className={`${className ? className : ""}`}
       type={type}
       size={svgSize}
       variant={svgVariant}
