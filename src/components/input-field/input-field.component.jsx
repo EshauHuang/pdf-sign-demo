@@ -1,4 +1,9 @@
-import { Container, Label, StyledInput } from "./input-field.style";
+import {
+  Container,
+  Label,
+  StyledInput,
+  ErrorMessage,
+} from "./input-field.style";
 
 export const Input = ({ placeholder, setInputValue, name, inputValue }) => {
   const handleChangeValue = (e) => {
@@ -33,16 +38,19 @@ const InputField = ({
   name,
   setInputValue,
   inputValue,
+  error
 }) => {
   return (
     <Container className={`${className ? className : ""}`}>
       {label && <Label>{label}</Label>}
       <Input
+        error={error}
         placeholder={placeholder}
         name={name}
         setInputValue={setInputValue}
         inputValue={inputValue}
       />
+      {error && <ErrorMessage>{error}</ErrorMessage>}
     </Container>
   );
 };

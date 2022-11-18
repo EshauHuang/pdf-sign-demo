@@ -17,12 +17,17 @@ import {
   StyledButton,
 } from "./rename.style";
 
-const RenamePopupBox = () => {
-  const [fileName, setFileName] = useState("");
+const initialFileName = {
+  fileName: ""
+}
 
+const RenamePopupBox = () => {
+  const [fileName, setFileName] = useState(initialFileName);
+  const hasValue = Object.values(fileName).some((value) => value);
+  
   useEffect(() => {
     return () => {
-      setFileName("");
+      setFileName(initialFileName);
     };
   }, []);
 
@@ -47,7 +52,7 @@ const RenamePopupBox = () => {
           setInputValue={setFileName}
         />
         <ButtonWrap>
-          <StyledButton size="large" variant="primary" disabled>
+          <StyledButton size="large" variant="primary" disabled={!hasValue}>
             儲存
           </StyledButton>
         </ButtonWrap>

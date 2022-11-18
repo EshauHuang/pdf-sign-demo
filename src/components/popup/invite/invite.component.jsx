@@ -48,6 +48,7 @@ const PopupBox = () => {
   );
 
   const [errorMessage, setErrorMessage] = useState(initialInvitePersonDetail);
+  const hasValue = Object.values(invitePersonDetail).some(value => value);
 
   useEffect(() => {
     return () => {
@@ -85,6 +86,7 @@ const PopupBox = () => {
       </TitleList>
       <Body>
         <InputField
+          error={errorMessage["email"]}
           name="email"
           label="簽署人信箱*"
           placeholder="請輸入電子郵件"
@@ -93,6 +95,7 @@ const PopupBox = () => {
         />
         <NameField>
           <StyledInputFiled
+            error={errorMessage["lastName"]}
             name="lastName"
             label="姓氏*"
             placeholder="請輸入簽署人的姓氏"
@@ -100,6 +103,7 @@ const PopupBox = () => {
             setInputValue={setInvitePersonDetail}
           />
           <StyledInputFiled
+            error={errorMessage["firstName"]}
             name="firstName"
             label="名字"
             placeholder="請輸入簽署人的名字"
@@ -108,7 +112,12 @@ const PopupBox = () => {
           />
         </NameField>
         <ButtonWrap>
-          <StyledButton type="submit" size="large" variant="primary">
+          <StyledButton
+            type="submit"
+            size="large"
+            variant="primary"
+            disabled={!hasValue}
+          >
             儲存
           </StyledButton>
         </ButtonWrap>

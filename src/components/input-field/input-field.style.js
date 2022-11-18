@@ -1,8 +1,10 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
+  position: relative;
   display: inline-block;
   width: 100%;
+  padding-bottom: 1.7rem;
 `;
 
 export const StyledInput = styled.input`
@@ -27,4 +29,12 @@ export const Label = styled.label`
   font-family: "Noto Sans TC";
   font-weight: 400;
   font-size: 1.2rem;
+`;
+
+export const ErrorMessage = styled.h6`
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  margin-top: 0.4rem;
+  color: ${({ theme }) => theme.colors.negative};
 `;
