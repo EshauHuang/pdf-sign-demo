@@ -185,7 +185,9 @@ export const GlobalStyle = createGlobalStyle`
   } */
 
   h1 {
+    font-family: 'Noto Sans TC';
     font-size: 3.2rem;
+    color: ${({ theme }) => theme.colors.darkGrey};
   }
 
   h2 {
@@ -193,10 +195,13 @@ export const GlobalStyle = createGlobalStyle`
     font-style: normal;
     font-weight: 700;
     font-size: 2.4rem;
+    color: ${({ theme }) => theme.colors.darkGrey};
   }
 
   h3 {
+    font-family: 'Noto Sans TC';
     font-size: 1.8rem;
+    color: ${({ theme }) => theme.colors.darkGrey};
   }
 
   h4 {
@@ -204,6 +209,7 @@ export const GlobalStyle = createGlobalStyle`
     font-style: normal;
     font-weight: 700;
     font-size: 1.6rem;
+    color: ${({ theme }) => theme.colors.darkGrey};
   }
 
   h5 {
@@ -211,10 +217,23 @@ export const GlobalStyle = createGlobalStyle`
     font-style: normal;
     font-weight: 700;
     font-size: 1.4rem;
+    color: ${({ theme }) => theme.colors.darkGrey};
   }
 
   h6 {
+    font-family: 'Noto Sans TC';
+    font-style: normal;
+    font-weight: 400;
     font-size: 1.2rem;
+    color: ${({ theme }) => theme.colors.darkGrey};
+  }
+
+  label {
+    font-family: 'Noto Sans TC';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 1.4rem;
+    color: ${({ theme }) => theme.colors.darkGrey};
   }
 
   p {

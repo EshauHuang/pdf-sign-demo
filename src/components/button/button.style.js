@@ -1,17 +1,81 @@
 import styled, { css } from "styled-components";
 
+export const svgPrimary = css`
+  border: 1px solid ${({ theme }) => theme.colors.grey};
+`;
+
+export const svgSecondary = css`
+  border: 1px solid transparent;
+`;
+
+export const svgLarge = css`
+  width: 4.8rem;
+  height: 4.8rem;
+`;
+
+export const svgMedium = css`
+  width: 4rem;
+  height: 4rem;
+`;
+
+export const svgSmall = css`
+  width: 3.2rem;
+  height: 3.2rem;
+`;
+
+export const svgButtonBase = css`
+  width: 4.8rem;
+  height: 4.8rem;
+  padding: 1.2rem;
+  background: #ffffff;
+  border: 1px solid ${({ theme }) => theme.colors.grey};
+  border-radius: 4px;
+  cursor: pointer;
+
+  svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  path {
+    fill: ${({ theme }) => theme.colors.darkGrey};
+  }
+`;
+
+export const StyledSvgButton = styled.div`
+  width: 4.8rem;
+  height: 4.8rem;
+  padding: 1.2rem;
+  background: #ffffff;
+  border: 1px solid
+    ${({ theme, type }) =>
+      type === "normal" ? "transparent" : theme.colors.grey};
+  border-radius: 4px;
+  cursor: pointer;
+
+  svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  path {
+    fill: ${({ theme }) => theme.colors.darkGrey};
+  }
+`;
+
 /* styles common to all buttons */
 export const buttonBase = css`
   font-family: "Noto Sans TC";
   font-size: 1.6rem;
   font-weight: 700;
-  display: flex;
+  display: inline-flex;
   justify-content: center;
   align-items: center;
   padding: 1.2rem 2.4rem;
   color: white;
   border-radius: 4px;
   cursor: pointer;
+
   background-color: ${({ theme }) => theme.colors.primary};
 
   :hover {
@@ -40,11 +104,13 @@ export const primary = css`
   :disabled {
     background-color: ${({ theme }) => theme.colors.uiGrey};
     color: ${({ theme }) => theme.colors.darkGrey};
+    font-weight: 400;
+    opacity: 0.4;
   }
 `;
 
 export const secondary = css`
-  color: black;
+  color: ${({ theme }) => theme.colors.darkGrey};
   background-color: white;
   border: 1px solid ${({ theme }) => theme.colors.grey};
 
@@ -60,6 +126,8 @@ export const secondary = css`
   :disabled {
     background-color: ${({ theme }) => theme.colors.uiGrey};
     color: ${({ theme }) => theme.colors.darkGrey};
+    font-weight: 400;
+    opacity: .4;
   }
 `;
 

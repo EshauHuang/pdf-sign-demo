@@ -1,6 +1,6 @@
 const theme = {
   fontSize: {
-    h1: ""
+    h1: "",
   },
   colors: {
     primary: "#0B7D77",
@@ -14,6 +14,7 @@ const theme = {
     grey: "#C5C7D0",
     uiGrey: "#E6E9EF",
     lightGrey: "#F5F6F8",
+    mask: "#CEE5E4",
   },
 };
 

@@ -42,7 +42,21 @@ export const StyledStepIcon = styled.div`
     ${({ type, theme }) =>
       type === "regular" ? "transparent" : theme.colors.selectedPrimary};
 
-  ${({ theme, outSideColor, fColor, insideColor }) => `
+  ${({
+    theme,
+    outSideColor,
+    fColor,
+    insideColor,
+    outSideBgColor,
+    innerBgColor,
+  }) => `
+    ${
+      outSideBgColor
+        ? theme.colors[outSideBgColor]
+          ? `background-color: ${theme.colors[outSideBgColor]};`
+          : `background-color: ${outSideBgColor};`
+        : ""
+    }
     ${
       outSideColor
         ? theme.colors[outSideColor]
@@ -71,6 +85,10 @@ export const StyledStepIcon = styled.div`
   `}
 `;
 
+const StyledCheckIcon = styled(StyledStepIcon)`
+  border: 2px solid transparent;
+`;
+
 export const StepIcon = ({ type, children, ...otherProps }) => {
   return (
     <StyledStepIcon {...otherProps} type={type}>
@@ -83,10 +101,10 @@ export const StepIcon = ({ type, children, ...otherProps }) => {
 
 export const CheckIcon = () => {
   return (
-    <StyledStepIcon>
+    <StyledCheckIcon>
       <StepIconInner>
         <StyledCheck />
       </StepIconInner>
-    </StyledStepIcon>
+    </StyledCheckIcon>
   );
 };

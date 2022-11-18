@@ -13,7 +13,7 @@ const Body = styled.div`
   color: white;
 `;
 
-const LanguageList = styled.li`
+const LanguageList = styled.ul`
   display: flex;
   align-items: center;
 
