@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
@@ -33,7 +34,25 @@ const StyledInputFiled = styled(InputField)`
   width: calc((100% - 0.8rem) / 2);
 `;
 
+const initialInvitePersonDetail = {
+  email: "",
+  firstName: "",
+  lastName: "",
+};
+
 const PopupBox = () => {
+  const [invitePersonDetail, setInvitePersonDetail] = useState(
+    initialInvitePersonDetail
+  );
+
+  console.log(invitePersonDetail);
+
+  useEffect(() => {
+    return () => {
+      setInvitePersonDetail(initialInvitePersonDetail);
+    };
+  }, []);
+
   return (
     <Container>
       <SvgButtonPos>
@@ -47,10 +66,28 @@ const PopupBox = () => {
         </TitleWrap>
       </TitleList>
       <Body>
-        <InputField label="簽署人信箱*" placeholder="請輸入電子郵件" />
+        <InputField
+          name="email"
+          label="簽署人信箱*"
+          placeholder="請輸入電子郵件"
+          inputValue={invitePersonDetail}
+          setInputValue={setInvitePersonDetail}
+        />
         <NameField>
-          <StyledInputFiled label="姓氏*" placeholder="請輸入簽署人的姓氏" />
-          <StyledInputFiled label="名字" placeholder="請輸入簽署人的名字" />
+          <StyledInputFiled
+            name="lastName"
+            label="姓氏*"
+            placeholder="請輸入簽署人的姓氏"
+            inputValue={invitePersonDetail}
+            setInputValue={setInvitePersonDetail}
+          />
+          <StyledInputFiled
+            name="firstName"
+            label="名字"
+            placeholder="請輸入簽署人的名字"
+            inputValue={invitePersonDetail}
+            setInputValue={setInvitePersonDetail}
+          />
         </NameField>
         <ButtonWrap>
           <StyledButton size="large" variant="primary" disabled>
