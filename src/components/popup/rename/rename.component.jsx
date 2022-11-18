@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 import InputField from "@/components/input-field/input-field.component";
@@ -16,7 +17,20 @@ import {
   StyledButton,
 } from "./rename.style";
 
-const PopupBox = () => {
+const initialFileName = {
+  fileName: ""
+}
+
+const RenamePopupBox = () => {
+  const [fileName, setFileName] = useState(initialFileName);
+  const hasValue = Object.values(fileName).some((value) => value);
+  
+  useEffect(() => {
+    return () => {
+      setFileName(initialFileName);
+    };
+  }, []);
+
   return (
     <Container>
       <SvgButtonPos>
@@ -30,9 +44,15 @@ const PopupBox = () => {
         </TitleWrap>
       </TitleList>
       <Body>
-        <InputField label="檔案" placeholder="請輸入檔案名稱" />
+        <InputField
+          name="fileName"
+          label="檔案"
+          placeholder="請輸入檔案名稱"
+          inputValue={fileName}
+          setInputValue={setFileName}
+        />
         <ButtonWrap>
-          <StyledButton size="large" variant="primary" disabled>
+          <StyledButton size="large" variant="primary" disabled={!hasValue}>
             儲存
           </StyledButton>
         </ButtonWrap>
@@ -44,7 +64,7 @@ const PopupBox = () => {
 const RenamePopup = () => {
   return (
     <PopupMask>
-      <PopupBox />
+      <RenamePopupBox />
     </PopupMask>
   );
 };
