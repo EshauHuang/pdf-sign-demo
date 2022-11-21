@@ -57,7 +57,9 @@ const Menu = () => {
     <Container>
       <Body>
         <LeftPart>
-          <Back />
+          <Link to="/">
+            <Back />
+          </Link>
           <FileName>型號U-ew8951出貨單</FileName>
           <Link
             to={{
