@@ -11,9 +11,14 @@
     "deploy": "gh-pages -d dist"
   },
   "dependencies": {
+    "jspdf": "^2.5.1",
+    "pdfjs-dist": "2.2.228",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-draggable": "^4.4.5",
+    "react-redux": "^8.0.5",
     "react-router-dom": "^6.4.3",
+    "redux": "^4.2.0",
     "styled-components": "^5.3.6",
     "vite-plugin-svgr": "^2.2.2"
   },

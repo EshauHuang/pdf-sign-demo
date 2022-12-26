@@ -9,6 +9,7 @@ import Signature from "@/routes/signature/signature.component";
 import RenamePopup from "@/components/popup/rename/rename.component";
 import AddSignPopup from "@/components/popup/add-sign/add-sign.component";
 import InvitePopup from "@/components/popup/invite/invite.component";
+import Viewer from "@/components/viewer/viewer.component";
 
 const App = () => {
   return (
@@ -23,6 +24,7 @@ const App = () => {
             <Route path="add-sign" element={<AddSignPopup />} />
             <Route path="invite" element={<InvitePopup />} />
           </Route>
+          <Route path="viewer" element={<Viewer />} />
         </Route>
       </Routes>
     </ThemeProvider>

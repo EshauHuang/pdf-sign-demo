@@ -4,14 +4,16 @@ import styled from "styled-components";
 import fakeInvoice from "@/assets/FakeInvoice01.png";
 
 const DocumentContainer = styled.div`
-  width: 100%;
+  /* width: 100%; */
   background-color: ${({ theme }) => theme.colors.lightGrey};
-  padding: 2.4rem 4.8rem;
+  /* padding: 2.4rem 4.8rem; */
+  display: flex;
+  justify-content: center;
 `;
 
 const Image = styled.img`
-  width: 100%;
-`
+  /* width: 100%; */
+`;
 
 export const Canvas = styled.canvas`
   width: 100%;
