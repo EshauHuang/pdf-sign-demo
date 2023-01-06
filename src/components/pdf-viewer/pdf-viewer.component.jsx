@@ -1,11 +1,6 @@
-import pdfjs from "pdfjs-dist";
-import { useRef, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { jsPDF } from "jspdf";
 
-import { readFileAsync } from "@/utils/readFileAsync";
-
-import { pdfUpload } from "@/store/pdf/action";
 import { selectPdf, selectNumPages } from "@/store/pdf/selector";
 import { selectDocSignatures } from "@/store/docSignatures/selector";
 
@@ -14,26 +9,9 @@ import PdfPages from "@/components/pdf-pages/pdf-pages.component";
 import { StyledPdfViewer } from "./pdf-viewer.style";
 
 const PdfViewer = ({ scale = 2 }) => {
-  const dispatch = useDispatch();
   const docSignatures = useSelector(selectDocSignatures);
   const pdf = useSelector(selectPdf);
   const numPages = useSelector(selectNumPages);
-
-  const handleUpload = async (e) => {
-    try {
-      const file = e.target.files[0];
-      if (!file) return;
-
-      const data = await readFileAsync(file);
-      const pdf = await pdfjs.getDocument(data).promise;
-
-      if (!pdf) throw new Error("pdf was empty");
-
-      dispatch(pdfUpload(pdf));
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
   const handleGetPdfPage = (index) => pdf.getPage(index);
 
@@ -89,15 +67,6 @@ const PdfViewer = ({ scale = 2 }) => {
 
   return (
     <StyledPdfViewer>
-      <div
-        style={{
-          backgroundColor: "white",
-        }}
-      >
-        <input onChange={handleUpload} type="file" accept="application/pdf" />
-        <br />
-        <button onClick={handleDownloadPdf}>DOWNLOAD</button>
-      </div>
       <PdfPages
         getPdfPage={handleGetPdfPage}
         pageCounts={numPages}

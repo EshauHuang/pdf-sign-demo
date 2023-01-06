@@ -18,7 +18,7 @@ const PdfPages = (props) => {
   }, [getPdfPage, pageCounts]);
 
   return (
-    <div className="pdf-pages-container">
+    <div>
       {pages.map((page, index) => (
         <PdfPage
           key={index + 1}

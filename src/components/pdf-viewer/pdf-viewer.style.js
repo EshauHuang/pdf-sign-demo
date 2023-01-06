@@ -1,9 +1,9 @@
 import styled from "styled-components";
 
 export const StyledPdfViewer = styled.div`
-  max-height: 100vh;
   background-color: #333;
+  width: max-content;
+  padding: 20px;
   // padding: 40px;
-  overflow: scroll;
   // width: 100%;
 `;

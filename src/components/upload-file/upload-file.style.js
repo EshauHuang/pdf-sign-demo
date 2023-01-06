@@ -1,10 +1,11 @@
 import styled from "styled-components";
-import { Link } from "react-router-dom";
 
 import Button from "@/components/button/button.component";
 
-export const StyleLink = styled(Link)`
+export const StyledLabel = styled.label`
   width: 100%;
+  margin: 0.8rem 0 1.6rem;
+  position: relative;
 `;
 
 export const Container = styled.div`
@@ -39,5 +40,14 @@ export const Captions = styled.h5`
 
 export const StyledButton = styled(Button)`
   width: 100%;
-  margin: 0.8rem 0 1.6rem;
+`;
+
+export const Upload = styled.input`
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  opacity: 0;
+  cursor: pointer;
 `;

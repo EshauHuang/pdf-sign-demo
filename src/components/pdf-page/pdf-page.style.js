@@ -21,8 +21,11 @@ export const StyledTextLayer = styled.div`
 
 export const StyledPdfPage = styled.div`
   position: relative;
-  margin: 10px 0;
   min-width: max-content;
+
+  & + & {
+    margin-top: 10px;
+  }
 
   canvas {
     // width: 100%;

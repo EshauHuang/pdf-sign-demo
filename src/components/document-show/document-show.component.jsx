@@ -9,8 +9,6 @@ const DocumentContainer = styled.div`
   /* width: 100%; */
   background-color: ${({ theme }) => theme.colors.lightGrey};
   /* padding: 2.4rem 4.8rem; */
-  display: flex;
-  justify-content: center;
 `;
 
 const Image = styled.img`
