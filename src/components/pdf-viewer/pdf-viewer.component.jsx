@@ -1,21 +1,23 @@
 import pdfjs from "pdfjs-dist";
 import { useRef, useState } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { jsPDF } from "jspdf";
 
 import { readFileAsync } from "@/utils/readFileAsync";
 
+import { pdfUpload } from "@/store/pdf/action";
+import { selectPdf, selectNumPages } from "@/store/pdf/selector";
 import { selectDocSignatures } from "@/store/docSignatures/selector";
 
 import PdfPages from "@/components/pdf-pages/pdf-pages.component";
 
 import { StyledPdfViewer } from "./pdf-viewer.style";
 
-const PdfViewer = () => {
-  const pdfRef = useRef(null);
-  const [pageCounts, setPageCounts] = useState(0);
+const PdfViewer = ({ scale = 2 }) => {
+  const dispatch = useDispatch();
   const docSignatures = useSelector(selectDocSignatures);
-  const scale = 2;
+  const pdf = useSelector(selectPdf);
+  const numPages = useSelector(selectNumPages);
 
   const handleUpload = async (e) => {
     try {
@@ -27,18 +29,15 @@ const PdfViewer = () => {
 
       if (!pdf) throw new Error("pdf was empty");
 
-      const { numPages } = pdf._pdfInfo;
-
-      pdfRef.current = pdf;
-      setPageCounts(numPages);
+      dispatch(pdfUpload(pdf));
     } catch (error) {
       console.log(error);
     }
   };
 
-  const handleGetPdfPage = (index) => pdfRef.current.getPage(index);
+  const handleGetPdfPage = (index) => pdf.getPage(index);
 
-  const handleDownaloadPdf = () => {
+  const handleDownloadPdf = () => {
     let doc;
     docSignatures.forEach((props, i) => {
       const { canvas, items: signatures } = props;
@@ -97,11 +96,11 @@ const PdfViewer = () => {
       >
         <input onChange={handleUpload} type="file" accept="application/pdf" />
         <br />
-        <button onClick={handleDownaloadPdf}>DOWNLOAD</button>
+        <button onClick={handleDownloadPdf}>DOWNLOAD</button>
       </div>
       <PdfPages
         getPdfPage={handleGetPdfPage}
-        pageCounts={pageCounts}
+        pageCounts={numPages}
         scale={scale}
       />
     </StyledPdfViewer>

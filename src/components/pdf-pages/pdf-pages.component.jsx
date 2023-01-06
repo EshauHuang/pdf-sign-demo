@@ -6,6 +6,8 @@ const PdfPages = (props) => {
   const { getPdfPage, pageCounts, canvasRefs, scale } = props;
   const [pages, setPages] = useState([]);
 
+  console.log("pageCounts", pageCounts);
+
   useEffect(() => {
     if (!pageCounts) return;
 

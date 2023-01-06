@@ -1,6 +1,8 @@
 import { Container } from "./document-show.style";
 import styled from "styled-components";
 
+import PdfViewer from "@/components/pdf-viewer/pdf-viewer.component";
+
 import fakeInvoice from "@/assets/FakeInvoice01.png";
 
 const DocumentContainer = styled.div`
@@ -26,7 +28,8 @@ const DocumentShow = () => {
     <Container>
       <DocumentContainer>
         {/* <Canvas /> */}
-        <Image src={fakeInvoice} />
+        {/* <Image src={fakeInvoice} /> */}
+        <PdfViewer />
       </DocumentContainer>
     </Container>
   );
