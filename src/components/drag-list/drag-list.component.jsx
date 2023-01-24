@@ -1,59 +1,24 @@
 import styled from "styled-components";
+import { useSelector } from "react-redux";
+
+import { selectSignatures } from "@/store/signatures/selector";
 
 import DragItem from "@/components/drag-item/drag-item.component";
-import signPhoto from "@/assets/sign-photo.png";
-
-const invitedPeople = [
-  {
-    id: 1,
-    name: "咖哩 飯",
-    email: "123456@gmail.com",
-    photo: signPhoto,
-  },
-  {
-    id: 2,
-    name: "咖哩 飯",
-    email: "123456@gmail.com",
-  },
-  {
-    id: 3,
-    name: "咖哩 飯",
-    email: "123456@gmail.com",
-  },
-  {
-    id: 3,
-    name: "咖哩 飯",
-    email: "123456@gmail.com",
-  },
-  {
-    id: 3,
-    name: "咖哩 飯",
-    email: "123456@gmail.com",
-  },
-  {
-    id: 3,
-    name: "咖哩 飯",
-    email: "123456@gmail.com",
-  },
-  {
-    id: 3,
-    name: "咖哩 飯",
-    email: "123456@gmail.com",
-  },
-  {
-    id: 3,
-    name: "咖哩 飯",
-    email: "123456@gmail.com",
-  },
-];
 
 const Container = styled.div``;
 
-const DragList = () => {
+const DragItemWrap = styled.div`
+  margin: 0.8rem 0;
+`;
+
+const DragList = ({ id = "box-1" }) => {
+  const signatures = useSelector((state) => selectSignatures(state, id));
   return (
     <Container>
-      {invitedPeople.map((person) => (
-        <DragItem key={person.id} {...person} />
+      {signatures.items.map((person, index) => (
+        <DragItemWrap key={person.id}>
+          <DragItem id={`${id}/item-${index + 1}`} person={person} />
+        </DragItemWrap>
       ))}
     </Container>
   );

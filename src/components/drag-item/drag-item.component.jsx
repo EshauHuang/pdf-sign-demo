@@ -1,83 +1,49 @@
-import styled from "styled-components";
+import { useDispatch } from "react-redux";
 
-import { SvgButton } from "@/components/button/button.component";
-import { ReactComponent as DragIndicatorIcon } from "@/assets/icon/drag-indicator.svg";
-import { ReactComponent as MoreVertIcon } from "@/assets/icon/more-vert.svg";
-import signPhoto from "@/assets/sign-photo.png";
+import { dragStart, dragEnd } from "@/store/drag/action";
+import { waitSignatureSave } from "@/store/docSignatures/action";
 
-const Container = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0.4rem 0.8rem;
-  border: 1px solid ${({ theme }) => theme.colors.selectedPrimary};
-  margin: 0.8rem 0;
-`;
+import SignatureItem from "@/components/signature-item/signature-item.component";
 
-const SignPhoto = styled.img`
-  height: 100%;
-`;
+const DragItem = ({ id, person }) => {
+  const dispatch = useDispatch();
 
-const StyledDragIndicatorIcon = styled(DragIndicatorIcon)`
-  path {
-    fill: ${({ theme }) => theme.colors.primary};
-  }
-`;
+  const handleDragStart = (e) => {
+    // const { id: u } = e.target;
+    const { x, y, width, height } = e.target.getBoundingClientRect();
+    const { clientX, clientY } = e;
+    const [parentId, itemId] = id.split("/");
+    const mouseOffsetX = clientX - x;
+    const mouseOffsetY = clientY - y;
+    e.target.style.opacity = 0.4;
+    dispatch(waitSignatureSave());
+    dispatch(
+      dragStart({
+        itemId,
+        parentId,
+        width,
+        height,
+        mouseOffsetX,
+        mouseOffsetY,
+      })
+    );
+  };
 
-const StyledMoreVertIcon = styled(MoreVertIcon)`
-  path {
-    fill: ${({ theme }) => theme.colors.darkGrey};
-  }
-`;
+  const handleDragEnd = (e) => {
+    e.target.style.opacity = 1;
 
-const SignOwnerDetail = styled.div`
-  margin-left: 0.8rem;
-  flex-grow: 1;
-`;
+    dispatch(dragEnd());
+  };
 
-const SignOwnerName = styled.h5``;
-
-const SignOwnerEmail = styled.h6`
-  margin-top: 0.4rem;
-  color: ${({ theme }) => theme.colors.primary};
-`;
-
-const Body = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-grow: 1;
-  height: 6.2rem;
-`;
-
-const EditPart = styled.div``;
-
-const DragItem = ({ name, email, photo }) => {
   return (
-    <Container>
-      <SvgButton
-        size="small"
-        variant="secondary"
-        component={<StyledDragIndicatorIcon />}
-      />
-      <Body>
-        {photo ? (
-          <SignPhoto src={signPhoto} />
-        ) : (
-          <SignOwnerDetail>
-            <SignOwnerName>{name}</SignOwnerName>
-            <SignOwnerEmail>{email}</SignOwnerEmail>
-          </SignOwnerDetail>
-        )}
-      </Body>
-      <EditPart>
-        <SvgButton
-          size="small"
-          variant="secondary"
-          component={<StyledMoreVertIcon />}
-        />
-      </EditPart>
-    </Container>
+    <div
+      draggable
+      id={id}
+      onDragStart={handleDragStart}
+      onDragEnd={handleDragEnd}
+    >
+      <SignatureItem person={person} />
+    </div>
   );
 };
 

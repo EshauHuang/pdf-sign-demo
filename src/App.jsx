@@ -1,4 +1,4 @@
-import { Route, Routes, useLocation } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import { ThemeProvider } from "styled-components";
 
 import theme from "@/style/theme";
