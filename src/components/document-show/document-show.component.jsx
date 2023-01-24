@@ -1,18 +1,23 @@
 import { Container } from "./document-show.style";
+import { useEffect } from "react";
 import styled from "styled-components";
+import { useSelector, useDispatch } from "react-redux";
+
+import { addSignatureToDoc } from "@/store/docSignatures/action";
+import { selectIsDropping, selectCurrentDrag } from "@/store/drag/selector";
+import {
+  selectDocSignatures,
+  selectIsSaved,
+} from "@/store/docSignatures/selector";
+import { selectSignatures } from "@/store/signatures/selector";
+import { selectPdfId } from "@/store/pdf/selector";
 
 import PdfViewer from "@/components/pdf-viewer/pdf-viewer.component";
 
 import fakeInvoice from "@/assets/FakeInvoice01.png";
 
 const DocumentContainer = styled.div`
-  /* width: 100%; */
   background-color: ${({ theme }) => theme.colors.lightGrey};
-  /* padding: 2.4rem 4.8rem; */
-`;
-
-const Image = styled.img`
-  /* width: 100%; */
 `;
 
 export const Canvas = styled.canvas`
@@ -22,11 +27,51 @@ export const Canvas = styled.canvas`
 `;
 
 const DocumentShow = () => {
+  const dispatch = useDispatch();
+  const currentDrag = useSelector(selectCurrentDrag);
+  const signaturesArray = useSelector(selectSignatures);
+  const docSignaturesArray = useSelector(selectDocSignatures);
+  const isDropping = useSelector(selectIsDropping);
+  const isSaved = useSelector(selectIsSaved);
+  const pdfId = useSelector(selectPdfId);
+
+  useEffect(() => {
+    if (isSaved || !isDropping || !signaturesArray || !docSignaturesArray)
+      return;
+
+    const { itemId, parentId, x, y, dropTo } = currentDrag;
+    console.log(currentDrag);
+    if (parentId.search(pdfId) >= 0) return;
+
+    const [, itemIndex] = itemId.split("-");
+    const signatures = signaturesArray.find(
+      (signature) => signature.id === parentId
+    );
+    console.log("itemIndex", itemIndex);
+
+    const newItem = signatures.items.find(
+      (item) => Number(itemIndex) === item.id
+    );
+    console.log(signatures.items);
+
+    dispatch(
+      addSignatureToDoc(docSignaturesArray, dropTo, {
+        ...newItem,
+        x,
+        y,
+      })
+    );
+  }, [
+    dispatch,
+    isSaved,
+    isDropping,
+    currentDrag,
+    signaturesArray,
+    docSignaturesArray,
+  ]);
   return (
     <Container>
       <DocumentContainer>
-        {/* <Canvas /> */}
-        {/* <Image src={fakeInvoice} /> */}
         <PdfViewer />
       </DocumentContainer>
     </Container>

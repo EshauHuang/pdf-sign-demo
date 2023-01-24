@@ -8,33 +8,30 @@ import {
 } from "@/store/docSignatures/action";
 import { selectDocSignatures } from "@/store/docSignatures/selector";
 
-import { StyledDropItem, DropItemContent } from "./drop-item.style";
+import DragItem from "@/components/drag-item/drag-item.component";
 
-const DropItem = (props) => {
+const DropItem = ({ item, dropItemId }) => {
   const dispatch = useDispatch();
   const contentRef = useRef(null);
-  const { item, dropItemId } = props;
+  const { x, y, ...person } = item;
   const docSignatures = useSelector((state) => selectDocSignatures(state));
-
   useEffect(() => {
     const content = contentRef.current;
     if (!content) return;
-    // console.log(docSignatures, dropItemId, content);
+
     dispatch(addSignatureContentEl(docSignatures, dropItemId, content));
   }, []);
   return (
     <Draggable
-      defaultPosition={{ x: item.x, y: item.y }}
+      defaultPosition={{ x, y }}
       bounds="parent"
-      onStop={(e, data) => {
-        const { lastX, lastY } = data;
+      // onStop={(data) => {
+      //   const { lastX, lastY } = data;
 
-        editSignaturePosition(docSignatures, dropItemId, lastX, lastY);
-      }}
+      //   editSignaturePosition(docSignatures, dropItemId, lastX, lastY);
+      // }}
     >
-      <StyledDropItem id={dropItemId}>
-        <DropItemContent ref={contentRef}>{item.title}</DropItemContent>
-      </StyledDropItem>
+      <DragItem id={dropItemId} person={person} />
     </Draggable>
   );
 };

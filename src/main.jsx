@@ -4,10 +4,10 @@ import { BrowserRouter, HashRouter } from "react-router-dom";
 import { store } from "@/store/store";
 import { Provider } from "react-redux";
 import pdfjs from "pdfjs-dist";
-
+const pdfjsWorker = await import("pdfjs-dist/build/pdf.worker.entry");
 import App from "./App";
 
-pdfjs.GlobalWorkerOptions.workerSrc = "https://d2v5g.csb.app/pdf.worker.js";
+pdfjs.GlobalWorkerOptions.workerSrc = pdfjsWorker;
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   // <React.StrictMode>

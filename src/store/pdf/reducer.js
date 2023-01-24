@@ -4,6 +4,7 @@ const INITIAL_STATE = {
   pdf: null,
   numPages: 0,
   scale: 2,
+  id: "page",
 };
 
 export const pdfReducer = (state = INITIAL_STATE, action = {}) => {

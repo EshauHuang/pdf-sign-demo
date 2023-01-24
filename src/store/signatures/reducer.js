@@ -1,4 +1,5 @@
 import { SIGNATURES_ACTION_TYPES } from "./types";
+import signPhoto from "@/assets/sign-photo.png";
 
 const INITIAL_STATE = {
   isLoading: false,
@@ -7,16 +8,20 @@ const INITIAL_STATE = {
       id: "box-1",
       items: [
         {
-          title: "aaa",
-          isSign: false,
+          id: 1,
+          name: "咖哩 飯",
+          email: "123@gmail.com",
+          photo: signPhoto,
         },
         {
-          title: "bbb",
-          isSign: false,
+          id: 2,
+          name: "abd",
+          email: "4567@gmail.com",
         },
         {
-          title: "ccc",
-          isSign: false,
+          id: 3,
+          name: "qqq飯",
+          email: "222@gmail.com",
         },
       ],
     },

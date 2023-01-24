@@ -1,4 +1,9 @@
 import styled from "styled-components";
+import { useSelector, useDispatch } from "react-redux";
+
+import { dragStart, dragEnd } from "@/store/drag/action";
+import { selectSignatures } from "@/store/signatures/selector";
+import { waitSignatureSave } from "@/store/docSignatures/action";
 
 import { SvgButton } from "@/components/button/button.component";
 import { ReactComponent as DragIndicatorIcon } from "@/assets/icon/drag-indicator.svg";
@@ -52,9 +57,46 @@ const Body = styled.div`
 
 const EditPart = styled.div``;
 
-const DragItem = ({ name, email, photo }) => {
+const DragItem = ({ id, person }) => {
+  const dispatch = useDispatch();
+  const { name, email, photo } = person;
+
+  const handleDragStart = (e) => {
+    const { id } = e.target;
+    const { x, y, width, height } = e.target.getBoundingClientRect();
+    const { clientX, clientY } = e;
+    const [parentId, itemId] = id.split("/");
+
+    const mouseOffsetX = clientX - x;
+    const mouseOffsetY = clientY - y;
+
+    e.target.style.opacity = 0.4;
+    dispatch(waitSignatureSave());
+    dispatch(
+      dragStart({
+        itemId,
+        parentId,
+        width,
+        height,
+        mouseOffsetX,
+        mouseOffsetY,
+      })
+    );
+  };
+
+  const handleDragEnd = (e) => {
+    e.target.style.opacity = 1;
+
+    dispatch(dragEnd());
+  };
+
   return (
-    <Container>
+    <Container
+      draggable
+      id={id}
+      onDragStart={handleDragStart}
+      onDragEnd={handleDragEnd}
+    >
       <SvgButton
         size="small"
         variant="secondary"

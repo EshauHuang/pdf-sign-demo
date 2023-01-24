@@ -61,7 +61,6 @@ export const addSignatureToDoc = (docSignatures, dropTo, signatureItem) => {
     dropTo,
     signatureItem
   );
-
   return createAction(
     DOC_SIGNATURES_ACTION_TYPES.SET_DOC_SIGNATURES,
     newDocSignatures
