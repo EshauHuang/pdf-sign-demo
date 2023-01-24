@@ -8,7 +8,7 @@ import {
 } from "@/store/docSignatures/action";
 import { selectDocSignatures } from "@/store/docSignatures/selector";
 
-import DragItem from "@/components/drag-item/drag-item.component";
+import SignatureItem from "@/components/signature-item/signature-item.component";
 
 const DropItem = ({ item, dropItemId }) => {
   const dispatch = useDispatch();
@@ -23,15 +23,24 @@ const DropItem = ({ item, dropItemId }) => {
   }, []);
   return (
     <Draggable
-      defaultPosition={{ x, y }}
+      defaultPosition={{ x: 0, y: 0 }}
       bounds="parent"
-      // onStop={(data) => {
-      //   const { lastX, lastY } = data;
-
-      //   editSignaturePosition(docSignatures, dropItemId, lastX, lastY);
-      // }}
+      onStop={(data) => {
+        const { lastX, lastY } = data;
+        editSignaturePosition(docSignatures, dropItemId, lastX, lastY);
+      }}
     >
-      <DragItem id={dropItemId} person={person} />
+      <div
+        id={dropItemId}
+        style={{
+          display: "inline-block",
+          position: "absolute",
+          top: y,
+          left: x,
+        }}
+      >
+        <SignatureItem person={person} />
+      </div>
     </Draggable>
   );
 };

@@ -40,19 +40,18 @@ const DocumentShow = () => {
       return;
 
     const { itemId, parentId, x, y, dropTo } = currentDrag;
-    console.log(currentDrag);
     if (parentId.search(pdfId) >= 0) return;
+
+    console.log("currentDrag", currentDrag);
 
     const [, itemIndex] = itemId.split("-");
     const signatures = signaturesArray.find(
       (signature) => signature.id === parentId
     );
-    console.log("itemIndex", itemIndex);
 
     const newItem = signatures.items.find(
       (item) => Number(itemIndex) === item.id
     );
-    console.log(signatures.items);
 
     dispatch(
       addSignatureToDoc(docSignaturesArray, dropTo, {
