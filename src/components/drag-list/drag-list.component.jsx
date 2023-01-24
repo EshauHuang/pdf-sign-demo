@@ -16,12 +16,8 @@ const DragList = ({ id = "box-1" }) => {
   return (
     <Container>
       {signatures.items.map((person, index) => (
-        <DragItemWrap>
-          <DragItem
-            id={`${id}/item-${index + 1}`}
-            key={person.id}
-            person={person}
-          />
+        <DragItemWrap key={person.id}>
+          <DragItem id={`${id}/item-${index + 1}`} person={person} />
         </DragItemWrap>
       ))}
     </Container>

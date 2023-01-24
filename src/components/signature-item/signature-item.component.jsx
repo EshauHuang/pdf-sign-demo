@@ -11,6 +11,7 @@ const Container = styled.div`
   justify-content: space-between;
   padding: 0.4rem 0.8rem;
   border: 1px solid ${({ theme }) => theme.colors.selectedPrimary};
+  pointer-events: none;
 `;
 
 const SignPhoto = styled.img`
@@ -63,7 +64,7 @@ const SignatureItem = ({ person }) => {
       />
       <Body>
         {photo ? (
-          <SignPhoto src={signPhoto} />
+          <SignPhoto src={signPhoto} draggable={false} />
         ) : (
           <SignOwnerDetail>
             <SignOwnerName>{name}</SignOwnerName>

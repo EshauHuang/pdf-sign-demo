@@ -9,14 +9,12 @@ const DragItem = ({ id, person }) => {
   const dispatch = useDispatch();
 
   const handleDragStart = (e) => {
-    const { id } = e.target;
+    // const { id: u } = e.target;
     const { x, y, width, height } = e.target.getBoundingClientRect();
     const { clientX, clientY } = e;
     const [parentId, itemId] = id.split("/");
-
     const mouseOffsetX = clientX - x;
     const mouseOffsetY = clientY - y;
-
     e.target.style.opacity = 0.4;
     dispatch(waitSignatureSave());
     dispatch(
