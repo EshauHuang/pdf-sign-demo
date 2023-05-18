@@ -21,8 +21,11 @@ const PdfPage = ({ scale, asyncPage, dropId }) => {
 
         if (!page || !canvas) return;
 
-        const viewport = page.getViewport({ scale });
+        scale = 2;
+
+        let viewport = page.getViewport({ scale });
         const context = canvas.getContext("2d");
+
         canvas.width = viewport.width;
         canvas.height = viewport.height;
 
@@ -86,7 +89,7 @@ const PdfPage = ({ scale, asyncPage, dropId }) => {
 
   return (
     <StyledPdfPage>
-      <canvas ref={canvasRef} />
+      <canvas ref={canvasRef} style={{ width: "100%" }} />
       <StyledTextLayer ref={textLayerRef}></StyledTextLayer>
       <DropBox id={dropId} canvasRef={canvasRef} />
     </StyledPdfPage>

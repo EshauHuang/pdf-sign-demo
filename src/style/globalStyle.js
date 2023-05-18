@@ -101,7 +101,7 @@ a {
 
   @font-face {
     font-family: 'Chenyuluoyan-Monospaced';
-    src: url("../assets/font/ChenYuluoyan-Thin-Monospaced.ttf") format("truetype");
+    /* src: url("../assets/font/ChenYuluoyan-Thin-Monospaced.ttf") format("truetype"); */
     font-style: normal;
     font-weight: 400;
   }

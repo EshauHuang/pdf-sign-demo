@@ -25,9 +25,13 @@ const DropItem = ({ item, dropItemId }) => {
     <Draggable
       defaultPosition={{ x: 0, y: 0 }}
       bounds="parent"
-      onStop={(data) => {
-        const { lastX, lastY } = data;
-        editSignaturePosition(docSignatures, dropItemId, lastX, lastY);
+      onStop={(e, data) => {
+        console.log("onStop");
+        const { lastX, lastY, node } = data;
+        const posX = lastX + Number(node.style.left.replace("px", ""));
+        const posY = lastY + Number(node.style.top.replace("px", ""));
+        console.log({ lastX, lastY });
+        dispatch(editSignaturePosition(docSignatures, dropItemId, posX, posY));
       }}
     >
       <div

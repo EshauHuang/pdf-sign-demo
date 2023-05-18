@@ -21,7 +21,8 @@ export const StyledTextLayer = styled.div`
 
 export const StyledPdfPage = styled.div`
   position: relative;
-  min-width: max-content;
+  width: 100%;
+  /* min-width: max-content; */
 
   & + & {
     margin-top: 10px;

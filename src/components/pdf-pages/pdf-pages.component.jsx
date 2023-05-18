@@ -20,7 +20,7 @@ const PdfPages = (props) => {
   }, [getPdfPage, pageCounts]);
 
   return (
-    <div>
+    <>
       {pages.map((page, index) => (
         <PdfPage
           key={index + 1}
@@ -29,7 +29,7 @@ const PdfPages = (props) => {
           scale={scale}
         />
       ))}
-    </div>
+    </>
   );
 };
 

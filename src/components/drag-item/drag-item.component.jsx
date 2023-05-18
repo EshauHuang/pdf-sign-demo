@@ -5,6 +5,8 @@ import { waitSignatureSave } from "@/store/docSignatures/action";
 
 import SignatureItem from "@/components/signature-item/signature-item.component";
 
+import { StyleDragItem } from "./drag-item.style";
+
 const DragItem = ({ id, person }) => {
   const dispatch = useDispatch();
 
@@ -36,14 +38,14 @@ const DragItem = ({ id, person }) => {
   };
 
   return (
-    <div
+    <StyleDragItem
       draggable
       id={id}
       onDragStart={handleDragStart}
       onDragEnd={handleDragEnd}
     >
       <SignatureItem person={person} />
-    </div>
+    </StyleDragItem>
   );
 };
 

@@ -39,7 +39,7 @@ const DocumentShow = () => {
     if (isSaved || !isDropping || !signaturesArray || !docSignaturesArray)
       return;
 
-    const { itemId, parentId, x, y, dropTo } = currentDrag;
+    const { itemId, parentId, x, y, width, height, dropTo } = currentDrag;
     if (parentId.search(pdfId) >= 0) return;
 
     console.log("currentDrag", currentDrag);
@@ -56,6 +56,8 @@ const DocumentShow = () => {
     dispatch(
       addSignatureToDoc(docSignaturesArray, dropTo, {
         ...newItem,
+        width,
+        height,
         x,
         y,
       })
