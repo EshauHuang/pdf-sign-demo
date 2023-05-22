@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { useRef, useEffect, forwardRef } from "react";
 
 import { SvgButton } from "@/components/button/button.component";
 import { ReactComponent as DragIndicatorIcon } from "@/assets/icon/drag-indicator.svg";
@@ -11,7 +12,7 @@ const Container = styled.div`
   justify-content: space-between;
   padding: 0.4rem 0.8rem;
   border: 1px solid ${({ theme }) => theme.colors.selectedPrimary};
-  pointer-events: none;
+  /* pointer-events: none; */
 `;
 
 const SignPhoto = styled.img`
@@ -57,11 +58,14 @@ const SignatureItem = ({ person }) => {
 
   return (
     <Container>
-      <SvgButton
-        size="small"
-        variant="secondary"
-        component={<StyledDragIndicatorIcon />}
-      />
+      <div className="handle">
+        <SvgButton
+          size="small"
+          variant="secondary"
+          cursor="grab"
+          component={<StyledDragIndicatorIcon />}
+        />
+      </div>
       <Body>
         {photo ? (
           <SignPhoto src={signPhoto} draggable={false} />

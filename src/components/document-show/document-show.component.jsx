@@ -42,8 +42,6 @@ const DocumentShow = () => {
     const { itemId, parentId, x, y, width, height, dropTo } = currentDrag;
     if (parentId.search(pdfId) >= 0) return;
 
-    console.log("currentDrag", currentDrag);
-
     const [, itemIndex] = itemId.split("-");
     const signatures = signaturesArray.find(
       (signature) => signature.id === parentId

@@ -1,6 +1,11 @@
+import { useSelector } from "react-redux";
 import { useState } from "react";
+import { jsPDF } from "jspdf";
 import styled from "styled-components";
 import { Outlet, Link } from "react-router-dom";
+
+import { selectPdf, selectNumPages } from "@/store/pdf/selector";
+import { selectDocSignatures } from "@/store/docSignatures/selector";
 
 import { ReactComponent as PersonAddIcon } from "@/assets/icon/person-add.svg";
 
@@ -87,6 +92,72 @@ const StyledButton = styled(Button)`
 `;
 
 const SignatureSetting = () => {
+  const docSignatures = useSelector(selectDocSignatures);
+  const haveDocSignatures = !!docSignatures.length;
+
+  const handleDownloadPdf = () => {
+    let doc;
+    docSignatures.forEach((props, i) => {
+      const { canvas, items: signatures } = props;
+
+      let scale = 1;
+      let max_width = 1080;
+
+      // 將 pdf 寬度定在 1080px
+      if (canvas.width > max_width) {
+        scale = max_width / canvas.width;
+      }
+
+      let scaledWidth = canvas.width * scale;
+      let scaledHeight = canvas.height * scale;
+
+      if (i === 0) {
+        doc =
+          scaledWidth > scaledHeight
+            ? new jsPDF("l", "px", [scaledWidth, scaledHeight])
+            : new jsPDF("p", "px", [scaledHeight, scaledWidth]);
+      } else {
+        if (scaledWidth > scaledHeight) {
+          doc.addPage([scaledWidth, scaledHeight], "l");
+        } else {
+          doc.addPage([scaledWidth, scaledHeight], "p");
+        }
+      }
+
+      const image = canvas.toDataURL("image/png");
+
+      doc.addImage(
+        image,
+        "PNG",
+        0,
+        0,
+        scaledWidth,
+        scaledHeight,
+        `page-${i + 1}`,
+        "SLOW"
+      );
+
+      if (signatures.length) {
+        const ratio = max_width / 720;
+        signatures.forEach((signature) => {
+          const { photo, x, y, width, height } = signature;
+
+          if (photo) {
+            doc.addImage(
+              photo,
+              "JPEG",
+              (x + 40) * ratio,
+              (y + 9) * ratio,
+              200 * ratio,
+              62 * ratio
+            );
+          }
+        });
+      }
+
+      doc.save("test.pdf");
+    });
+  };
   return (
     <SignatureSettingContainer>
       <SignatureSettingTop>
@@ -94,7 +165,12 @@ const SignatureSetting = () => {
         <MySignatures />
         <InvitedSignatures />
       </SignatureSettingTop>
-      <StyledButton size="large" variant="primary" disabled>
+      <StyledButton
+        onClick={handleDownloadPdf}
+        size="large"
+        variant="primary"
+        disabled={!haveDocSignatures}
+      >
         下一步
       </StyledButton>
     </SignatureSettingContainer>

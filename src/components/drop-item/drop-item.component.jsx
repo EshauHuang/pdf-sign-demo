@@ -1,3 +1,4 @@
+import styled from "styled-components"
 import { useEffect, useRef } from "react";
 import Draggable from "react-draggable";
 import { useSelector, useDispatch } from "react-redux";
@@ -10,8 +11,18 @@ import { selectDocSignatures } from "@/store/docSignatures/selector";
 
 import SignatureItem from "@/components/signature-item/signature-item.component";
 
+const Container = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.4rem 0.8rem;
+  border: 1px solid ${({ theme }) => theme.colors.selectedPrimary};
+  pointer-events: none;
+`;
+
 const DropItem = ({ item, dropItemId }) => {
   const dispatch = useDispatch();
+  const nodeRef = useRef(null);
   const contentRef = useRef(null);
   const { x, y, ...person } = item;
   const docSignatures = useSelector((state) => selectDocSignatures(state));
@@ -23,24 +34,26 @@ const DropItem = ({ item, dropItemId }) => {
   }, []);
   return (
     <Draggable
-      defaultPosition={{ x: 0, y: 0 }}
+      defaultPosition={{ x, y }}
       bounds="parent"
+      handle=".handle"
+      nodeRef={nodeRef}
       onStop={(e, data) => {
-        console.log("onStop");
-        const { lastX, lastY, node } = data;
-        const posX = lastX + Number(node.style.left.replace("px", ""));
-        const posY = lastY + Number(node.style.top.replace("px", ""));
-        console.log({ lastX, lastY });
-        dispatch(editSignaturePosition(docSignatures, dropItemId, posX, posY));
+        const { lastX, lastY } = data;
+
+        dispatch(
+          editSignaturePosition(docSignatures, dropItemId, lastX, lastY)
+        );
       }}
     >
       <div
         id={dropItemId}
+        ref={nodeRef}
         style={{
           display: "inline-block",
           position: "absolute",
-          top: y,
-          left: x,
+          maxWidth: "280px",
+          minWidth: "280px",
         }}
       >
         <SignatureItem person={person} />

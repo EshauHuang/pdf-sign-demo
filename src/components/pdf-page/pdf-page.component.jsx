@@ -15,6 +15,7 @@ const PdfPage = ({ scale, asyncPage, dropId }) => {
     const canvas = canvasRef.current;
     const textLayer = textLayerRef.current;
 
+    // 顯示 pdf
     const renderPage = async () => {
       try {
         const page = await asyncPage;
@@ -45,6 +46,7 @@ const PdfPage = ({ scale, asyncPage, dropId }) => {
       }
     };
 
+    // 顯示 pdf 文字
     const renderTextLayer = async (resize) => {
       try {
         const page = await asyncPage;
@@ -64,6 +66,7 @@ const PdfPage = ({ scale, asyncPage, dropId }) => {
       }
     };
 
+    // 螢幕改變大小時，動態調整活字大小
     const resizeTextLayer = () => {
       if (!canvas || !textLayer) return;
 
