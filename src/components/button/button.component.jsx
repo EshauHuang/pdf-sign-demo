@@ -16,7 +16,7 @@ export const SvgButtonBase = styled.button`
   ${(props) => S[props.size]};
   ${(props) => S[props.variant]};
   ${(props) => props.style};
-  cursor: ${(props) => props.cursor};
+  cursor: ${(props) => props.cursorType};
 `;
 
 export const SvgButton = ({
@@ -26,7 +26,7 @@ export const SvgButton = ({
   size,
   variant,
   style,
-  cursor,
+  cursorType,
 }) => {
   const svgVariant = variant
     ? `svg${capitalizeFirstLetter(variant)}`
@@ -40,7 +40,7 @@ export const SvgButton = ({
       size={svgSize}
       variant={svgVariant}
       style={style}
-      cursor={cursor}
+      cursorType={cursorType}
     >
       {component}
     </SvgButtonBase>

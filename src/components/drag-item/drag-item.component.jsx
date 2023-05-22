@@ -1,4 +1,5 @@
 import { useDispatch } from "react-redux";
+import { useRef, useState } from "react";
 
 import { dragStart, dragEnd } from "@/store/drag/action";
 import { waitSignatureSave } from "@/store/docSignatures/action";
@@ -9,10 +10,15 @@ import { StyleDragItem } from "./drag-item.style";
 
 const DragItem = ({ id, person }) => {
   const dispatch = useDispatch();
+  const dragItemRef = useRef(null);
+  const [isDraggable, setIsDraggable] = useState(false);
 
   const handleDragStart = (e) => {
-    // const { id: u } = e.target;
-    const { x, y, width, height } = e.target.getBoundingClientRect();
+    const dragItem = dragItemRef.current;
+
+    if (!dragItem) return;
+
+    const { x, y, width, height } = dragItem.getBoundingClientRect();
     const { clientX, clientY } = e;
     const [parentId, itemId] = id.split("/");
     const mouseOffsetX = clientX - x;
@@ -35,14 +41,24 @@ const DragItem = ({ id, person }) => {
     e.target.style.opacity = 1;
 
     dispatch(dragEnd());
+    setIsDraggable(false);
   };
 
   return (
     <StyleDragItem
-      draggable
+      draggable={isDraggable}
       id={id}
+      onMouseDown={(e) => {
+        let target =
+          e.target.closest(".handle")
+
+        if (target) {
+          setIsDraggable(true);
+        }
+      }}
       onDragStart={handleDragStart}
       onDragEnd={handleDragEnd}
+      ref={dragItemRef}
     >
       <SignatureItem person={person} />
     </StyleDragItem>

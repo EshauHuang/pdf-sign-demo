@@ -58,14 +58,13 @@ const SignatureItem = ({ person }) => {
 
   return (
     <Container>
-      <div className="handle">
-        <SvgButton
-          size="small"
-          variant="secondary"
-          cursor="grab"
-          component={<StyledDragIndicatorIcon />}
-        />
-      </div>
+      <SvgButton
+        className="handle"
+        size="small"
+        variant="secondary"
+        cursorType="grab"
+        component={<StyledDragIndicatorIcon />}
+      />
       <Body>
         {photo ? (
           <SignPhoto src={signPhoto} draggable={false} />
