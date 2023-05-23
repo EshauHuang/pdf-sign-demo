@@ -15,13 +15,15 @@ const INITIAL_STATE = {
         },
         {
           id: 2,
-          name: "abd",
+          name: "王小明",
           email: "4567@gmail.com",
+          text: "王小明",
         },
         {
           id: 3,
-          name: "qqq飯",
+          name: "陳大明",
           email: "222@gmail.com",
+          text: "陳大明",
         },
       ],
     },

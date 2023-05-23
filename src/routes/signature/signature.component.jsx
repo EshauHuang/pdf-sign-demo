@@ -1,8 +1,11 @@
 import { useSelector } from "react-redux";
-import { useState } from "react";
-import { jsPDF } from "jspdf";
+import { useState, useEffect } from "react";
+// import { jsPDF } from "jspdf";
+import jsPDF from "jspdf";
 import styled from "styled-components";
 import { Outlet, Link } from "react-router-dom";
+
+import decodeFontFace from "../../utils/decodeFontFace";
 
 import { selectPdf, selectNumPages } from "@/store/pdf/selector";
 import { selectDocSignatures } from "@/store/docSignatures/selector";
@@ -139,8 +142,8 @@ const SignatureSetting = () => {
 
       if (signatures.length) {
         const ratio = max_width / 720;
-        signatures.forEach((signature) => {
-          const { photo, x, y, width, height } = signature;
+        signatures.forEach(async (signature) => {
+          const { photo, text, x, y, width, height } = signature;
 
           if (photo) {
             doc.addImage(
@@ -151,6 +154,22 @@ const SignatureSetting = () => {
               200 * ratio,
               62 * ratio
             );
+          } else if (text) {
+            const base64 = await decodeFontFace(
+              "ChenYuluoyan-Thin-Monospaced.ttf"
+            );
+            console.log({ base64 });
+            doc.addFileToVFS("ChenYuluoyan-Thin-Monospaced.ttf", base64);
+            doc.addFont(
+              "ChenYuluoyan-Thin-Monospaced.ttf",
+              "ChenYuluoyan-Thin-Monospaced",
+              "normal"
+            );
+
+            doc.setFont("ChenYuluoyan-Thin-Monospaced", "normal");
+            doc.setFontSize(42);
+            // doc.text("王小明", (x + 77) * ratio, (y + 5) * ratio);
+            doc.text("123", 100, 100);
           }
         });
       }
