@@ -1,13 +1,11 @@
 import { useSelector } from "react-redux";
-import { useState, useEffect } from "react";
-// import { jsPDF } from "jspdf";
-import jsPDF from "jspdf";
+import { useRef, useState, useEffect } from "react";
+import { jsPDF } from "jspdf";
 import styled from "styled-components";
 import { Outlet, Link } from "react-router-dom";
 
-import decodeFontFace from "../../utils/decodeFontFace";
+import generateTextImage from "../../utils/generateTextImage";
 
-import { selectPdf, selectNumPages } from "@/store/pdf/selector";
 import { selectDocSignatures } from "@/store/docSignatures/selector";
 
 import { ReactComponent as PersonAddIcon } from "@/assets/icon/person-add.svg";
@@ -95,13 +93,14 @@ const StyledButton = styled(Button)`
 `;
 
 const SignatureSetting = () => {
+  const testRef = useRef(null);
   const docSignatures = useSelector(selectDocSignatures);
   const haveDocSignatures = !!docSignatures.length;
 
-  const handleDownloadPdf = () => {
+  const handleDownloadPdf = async () => {
     let doc;
-    docSignatures.forEach((props, i) => {
-      const { canvas, items: signatures } = props;
+    for (const [i, signature] of docSignatures.entries()) {
+      const { canvas, items: signatures } = signature;
 
       let scale = 1;
       let max_width = 1080;
@@ -114,12 +113,14 @@ const SignatureSetting = () => {
       let scaledWidth = canvas.width * scale;
       let scaledHeight = canvas.height * scale;
 
+      // 首頁需設定 jsPDF
       if (i === 0) {
         doc =
           scaledWidth > scaledHeight
             ? new jsPDF("l", "px", [scaledWidth, scaledHeight])
             : new jsPDF("p", "px", [scaledHeight, scaledWidth]);
       } else {
+        // 依據 PDF 常寬設定 orientation 參數
         if (scaledWidth > scaledHeight) {
           doc.addPage([scaledWidth, scaledHeight], "l");
         } else {
@@ -142,9 +143,11 @@ const SignatureSetting = () => {
 
       if (signatures.length) {
         const ratio = max_width / 720;
-        signatures.forEach(async (signature) => {
+        for (const signature of signatures) {
+          // 目前 width 及 height 是整個拖曳部份，但 PDF 只需內容的部分
           const { photo, text, x, y, width, height } = signature;
 
+          // 40 = border + padding + icon + flex center
           if (photo) {
             doc.addImage(
               photo,
@@ -155,27 +158,32 @@ const SignatureSetting = () => {
               62 * ratio
             );
           } else if (text) {
-            const base64 = await decodeFontFace(
-              "ChenYuluoyan-Thin-Monospaced.ttf"
-            );
-            console.log({ base64 });
-            doc.addFileToVFS("ChenYuluoyan-Thin-Monospaced.ttf", base64);
-            doc.addFont(
-              "ChenYuluoyan-Thin-Monospaced.ttf",
-              "ChenYuluoyan-Thin-Monospaced",
-              "normal"
-            );
+            const {
+              dataUrl: photo,
+              width: photoWidth,
+              height: photoHeight,
+            } = await generateTextImage({
+              text,
+              style: {
+                fontSize: "42px",
+                fontFamily: "Chenyuluoyan-Monospaced",
+              },
+            });
 
-            doc.setFont("ChenYuluoyan-Thin-Monospaced", "normal");
-            doc.setFontSize(42);
-            // doc.text("王小明", (x + 77) * ratio, (y + 5) * ratio);
-            doc.text("123", 100, 100);
+            doc.addImage(
+              photo,
+              "PNG",
+              (x + 77) * ratio,
+              (y + 5) * ratio,
+              photoWidth * ratio,
+              photoHeight * ratio
+            );
           }
-        });
+        }
       }
 
       doc.save("test.pdf");
-    });
+    }
   };
   return (
     <SignatureSettingContainer>
