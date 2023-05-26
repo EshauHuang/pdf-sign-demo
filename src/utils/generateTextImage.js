@@ -11,7 +11,7 @@ export default async function generateTextImage({ text, style }) {
   document.body.appendChild(textEl);
 
   return new Promise((resolve, reject) => {
-    html2canvas(textEl)
+    html2canvas(textEl, { backgroundColor: null })
       .then((canvas) => {
         const width = canvas.width;
         const height = canvas.height;

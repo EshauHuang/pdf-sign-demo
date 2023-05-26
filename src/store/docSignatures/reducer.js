@@ -20,7 +20,7 @@ export const docSignaturesReducer = (state = INITIAL_STATE, action = {}) => {
     case DOC_SIGNATURES_ACTION_TYPES.SET_SIGNATURE_IS_SAVED:
       return {
         ...state,
-        isSaved: false,
+        isSaved: payload,
       };
 
     case DOC_SIGNATURES_ACTION_TYPES.CREATE_DOC_SIGNATURES:

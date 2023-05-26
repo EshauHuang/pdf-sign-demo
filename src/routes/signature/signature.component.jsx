@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import { useRef, useState, useEffect } from "react";
+import { useState } from "react";
 import { jsPDF } from "jspdf";
 import styled from "styled-components";
 import { Outlet, Link } from "react-router-dom";
@@ -10,6 +10,7 @@ import { selectDocSignatures } from "@/store/docSignatures/selector";
 
 import { ReactComponent as PersonAddIcon } from "@/assets/icon/person-add.svg";
 
+import Spinner from "@/components/spinner/spinner.component";
 import Menu from "@/components/menu/menu.component";
 import StepList from "@/components/step-list/step-list.component";
 import PersonalForm from "@/components/personal-form/person-form.component";
@@ -92,98 +93,112 @@ const StyledButton = styled(Button)`
   width: 100%;
 `;
 
-const SignatureSetting = () => {
-  const testRef = useRef(null);
+const SignatureSetting = ({ isDownloading, setIsDownloading }) => {
   const docSignatures = useSelector(selectDocSignatures);
   const haveDocSignatures = !!docSignatures.length;
 
-  const handleDownloadPdf = async () => {
-    let doc;
-    for (const [i, signature] of docSignatures.entries()) {
-      const { canvas, items: signatures } = signature;
+  const pdfDownload = (docSignatures) => {
+    return new Promise(async (resolve, reject) => {
+      let doc;
+      for (const [i, signature] of docSignatures.entries()) {
+        const { canvas, items: signatures } = signature;
+        let scale = 1;
+        let max_width = 1080; // Set PDF width to 1080px
 
-      let scale = 1;
-      let max_width = 1080;
-
-      // 將 pdf 寬度定在 1080px
-      if (canvas.width > max_width) {
-        scale = max_width / canvas.width;
-      }
-
-      let scaledWidth = canvas.width * scale;
-      let scaledHeight = canvas.height * scale;
-
-      // 首頁需設定 jsPDF
-      if (i === 0) {
-        doc =
-          scaledWidth > scaledHeight
-            ? new jsPDF("l", "px", [scaledWidth, scaledHeight])
-            : new jsPDF("p", "px", [scaledHeight, scaledWidth]);
-      } else {
-        // 依據 PDF 常寬設定 orientation 參數
-        if (scaledWidth > scaledHeight) {
-          doc.addPage([scaledWidth, scaledHeight], "l");
-        } else {
-          doc.addPage([scaledWidth, scaledHeight], "p");
+        if (canvas.width > max_width) {
+          scale = max_width / canvas.width;
         }
-      }
+        let scaledWidth = canvas.width * scale;
+        let scaledHeight = canvas.height * scale;
 
-      const image = canvas.toDataURL("image/png");
+        // Create jsPDF instance at first time
+        if (i === 0) {
+          doc =
+            scaledWidth > scaledHeight
+              ? new jsPDF("l", "px", [scaledWidth, scaledHeight])
+              : new jsPDF("p", "px", [scaledHeight, scaledWidth]);
+        } else {
+          // Set the orientation of the PDF page according to its dimensions
+          if (scaledWidth > scaledHeight) {
+            // If width is greater than height, set the orientation to Landscape
+            doc.addPage([scaledWidth, scaledHeight], "l");
+          } else {
+            // If height is equal or greater than width, set the orientation to Portrait
+            doc.addPage([scaledWidth, scaledHeight], "p");
+          }
+        }
+        const image = canvas.toDataURL("image/png");
+        doc.addImage(
+          image,
+          "PNG",
+          0,
+          0,
+          scaledWidth,
+          scaledHeight,
+          `page-${i + 1}`,
+          "SLOW"
+        );
+        if (signatures.length) {
+          const ratio = max_width / 720;
+          for (const signature of signatures) {
+            /*
+              The width and height variables in the 'signature' code incorrectly include extra elements, resulting in dimensions larger than desired. The code needs to be adjusted to exclude these extra elements.
+            */
+            const { photo, text, x, y, width, height } = signature;
 
-      doc.addImage(
-        image,
-        "PNG",
-        0,
-        0,
-        scaledWidth,
-        scaledHeight,
-        `page-${i + 1}`,
-        "SLOW"
-      );
-
-      if (signatures.length) {
-        const ratio = max_width / 720;
-        for (const signature of signatures) {
-          // 目前 width 及 height 是整個拖曳部份，但 PDF 只需內容的部分
-          const { photo, text, x, y, width, height } = signature;
-
-          // 40 = border + padding + icon + flex center
-          if (photo) {
-            doc.addImage(
-              photo,
-              "JPEG",
-              (x + 40) * ratio,
-              (y + 9) * ratio,
-              200 * ratio,
-              62 * ratio
-            );
-          } else if (text) {
-            const {
-              dataUrl: photo,
-              width: photoWidth,
-              height: photoHeight,
-            } = await generateTextImage({
-              text,
-              style: {
-                fontSize: "42px",
-                fontFamily: "Chenyuluoyan-Monospaced",
-              },
-            });
-
-            doc.addImage(
-              photo,
-              "PNG",
-              (x + 77) * ratio,
-              (y + 5) * ratio,
-              photoWidth * ratio,
-              photoHeight * ratio
-            );
+            // 40 = border width + padding + icon + flex center
+            if (photo) {
+              doc.addImage(
+                photo,
+                "JPEG",
+                (x + 40) * ratio,
+                (y + 9) * ratio,
+                200 * ratio,
+                62 * ratio
+              );
+            } else if (text) {
+              const {
+                dataUrl: photo,
+                width: photoWidth,
+                height: photoHeight,
+              } = await generateTextImage({
+                text,
+                style: {
+                  fontSize: "42px",
+                  fontFamily: "Chenyuluoyan-Monospaced",
+                },
+              });
+              doc.addImage(
+                photo,
+                "PNG",
+                (x + 77) * ratio,
+                (y + 5) * ratio,
+                photoWidth * ratio,
+                photoHeight * ratio
+              );
+            }
           }
         }
       }
+      doc
+        .save("test.pdf", { returnPromise: true })
+        .then(() => {
+          resolve();
+        })
+        .catch(() => {
+          reject();
+        });
+    });
+  };
 
-      doc.save("test.pdf");
-    }
+  const handleDownloadPdf = async () => {
+    if (isDownloading) return;
+    setIsDownloading(true);
+    setTimeout(() => {
+      pdfDownload(docSignatures)
+        .then(() => setIsDownloading(false))
+        .catch(() => setIsDownloading(false));
+    }, 0);
   };
   return (
     <SignatureSettingContainer>
@@ -211,13 +226,19 @@ const SignatureContainer = styled.div`
 `;
 
 const Signature = () => {
+  const [isDownloading, setIsDownloading] = useState(false);
+
   return (
     <SignatureContainer>
+      {isDownloading && <Spinner />}
       <Menu />
       <StepList />
       <Body>
         <DocumentShow />
-        <SignatureSetting />
+        <SignatureSetting
+          isDownloading={isDownloading}
+          setIsDownloading={setIsDownloading}
+        />
       </Body>
       <Outlet />
     </SignatureContainer>
