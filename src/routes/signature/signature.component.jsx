@@ -97,98 +97,91 @@ const SignatureSetting = ({ isDownloading, setIsDownloading }) => {
   const docSignatures = useSelector(selectDocSignatures);
   const haveDocSignatures = !!docSignatures.length;
 
-  const pdfDownload = (docSignatures) => {
-    return new Promise(async (resolve, reject) => {
-      let doc;
-      for (const [i, signature] of docSignatures.entries()) {
-        const { canvas, items: signatures } = signature;
-        let scale = 1;
-        let max_width = 1080; // Set PDF width to 1080px
+  const pdfDownload = async (docSignatures) => {
+    let doc;
+    const max_width = 1080; // Set PDF width to 1080px
 
-        if (canvas.width > max_width) {
-          scale = max_width / canvas.width;
-        }
-        let scaledWidth = canvas.width * scale;
-        let scaledHeight = canvas.height * scale;
+    for (const [i, signature] of docSignatures.entries()) {
+      const { canvas, items: signatures } = signature;
+      let scale = 1;
 
-        // Create jsPDF instance at first time
-        if (i === 0) {
-          doc =
-            scaledWidth > scaledHeight
-              ? new jsPDF("l", "px", [scaledWidth, scaledHeight])
-              : new jsPDF("p", "px", [scaledHeight, scaledWidth]);
+      if (canvas.width > max_width) {
+        scale = max_width / canvas.width;
+      }
+      let scaledWidth = canvas.width * scale;
+      let scaledHeight = canvas.height * scale;
+
+      // Create jsPDF instance at first time
+      if (i === 0) {
+        doc =
+          scaledWidth > scaledHeight
+            ? new jsPDF("l", "px", [scaledWidth, scaledHeight])
+            : new jsPDF("p", "px", [scaledHeight, scaledWidth]);
+      } else {
+        // Set the orientation of the PDF page according to its dimensions
+        if (scaledWidth > scaledHeight) {
+          // If width is greater than height, set the orientation to Landscape
+          doc.addPage([scaledWidth, scaledHeight], "l");
         } else {
-          // Set the orientation of the PDF page according to its dimensions
-          if (scaledWidth > scaledHeight) {
-            // If width is greater than height, set the orientation to Landscape
-            doc.addPage([scaledWidth, scaledHeight], "l");
-          } else {
-            // If height is equal or greater than width, set the orientation to Portrait
-            doc.addPage([scaledWidth, scaledHeight], "p");
-          }
+          // If height is equal or greater than width, set the orientation to Portrait
+          doc.addPage([scaledHeight, scaledWidth], "p");
         }
-        const image = canvas.toDataURL("image/png");
-        doc.addImage(
-          image,
-          "PNG",
-          0,
-          0,
-          scaledWidth,
-          scaledHeight,
-          `page-${i + 1}`,
-          "SLOW"
-        );
-        if (signatures.length) {
-          const ratio = max_width / 720;
-          for (const signature of signatures) {
-            /*
+      }
+      const image = canvas.toDataURL("image/png");
+      doc.addImage(
+        image,
+        "PNG",
+        0,
+        0,
+        scaledWidth,
+        scaledHeight,
+        `page-${i + 1}`,
+        "SLOW"
+      );
+      if (signatures.length) {
+        const ratio = max_width / 720;
+        for (const signature of signatures) {
+          /*
               The width and height variables in the 'signature' code incorrectly include extra elements, resulting in dimensions larger than desired. The code needs to be adjusted to exclude these extra elements.
             */
-            const { photo, text, x, y, width, height } = signature;
+          const { photo, text, x, y, width, height } = signature;
 
-            // 40 = border width + padding + icon + flex center
-            if (photo) {
-              doc.addImage(
-                photo,
-                "JPEG",
-                (x + 40) * ratio,
-                (y + 9) * ratio,
-                200 * ratio,
-                62 * ratio
-              );
-            } else if (text) {
-              const {
-                dataUrl: photo,
-                width: photoWidth,
-                height: photoHeight,
-              } = await generateTextImage({
-                text,
-                style: {
-                  fontSize: "42px",
-                  fontFamily: "Chenyuluoyan-Monospaced",
-                },
-              });
-              doc.addImage(
-                photo,
-                "PNG",
-                (x + 77) * ratio,
-                (y + 5) * ratio,
-                photoWidth * ratio,
-                photoHeight * ratio
-              );
-            }
+          // 40 = border width + padding + icon + flex center
+          if (photo) {
+            doc.addImage(
+              photo,
+              "JPEG",
+              (x + 40) * ratio,
+              (y + 9) * ratio,
+              200 * ratio,
+              62 * ratio
+            );
+          } else if (text) {
+            const {
+              dataUrl: photo,
+              width: photoWidth,
+              height: photoHeight,
+            } = await generateTextImage({
+              text,
+              style: {
+                fontSize: "4.2rem",
+                fontFamily: "Chenyuluoyan-Monospaced",
+                fontWeight: "400",
+              },
+            });
+            doc.addImage(
+              photo,
+              "PNG",
+              x * ratio,
+              y * ratio,
+              photoWidth * ratio,
+              photoHeight * ratio
+            );
           }
         }
       }
-      doc
-        .save("test.pdf", { returnPromise: true })
-        .then(() => {
-          resolve();
-        })
-        .catch(() => {
-          reject();
-        });
-    });
+    }
+    return doc.save("test.pdf", { returnPromise: true });
   };
 
   const handleDownloadPdf = async () => {

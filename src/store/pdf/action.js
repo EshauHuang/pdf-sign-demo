@@ -9,3 +9,7 @@ export const pdfUpload = (pdf) => {
     numPages,
   });
 };
+
+export const pdfInit = () => {
+  return createAction(PDF_ACTION_TYPES.PDF_INIT);
+};

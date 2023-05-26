@@ -99,3 +99,7 @@ export const waitSignatureSave = () =>
 export const createNewDocSignature = (props) => {
   return createAction(DOC_SIGNATURES_ACTION_TYPES.CREATE_DOC_SIGNATURES, props);
 };
+
+export const docSignatureInit = () => {
+  return createAction(DOC_SIGNATURES_ACTION_TYPES.DOC_SIGNATURES_INIT);
+};

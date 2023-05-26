@@ -16,6 +16,8 @@ export const pdfReducer = (state = INITIAL_STATE, action = {}) => {
         ...state,
         ...payload,
       };
+    case PDF_ACTION_TYPES.PDF_INIT:
+      return INITIAL_STATE;
     default:
       return state;
   }

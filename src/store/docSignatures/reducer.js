@@ -35,6 +35,9 @@ export const docSignaturesReducer = (state = INITIAL_STATE, action = {}) => {
         ],
       };
 
+    case DOC_SIGNATURES_ACTION_TYPES.DOC_SIGNATURES_INIT:
+      return INITIAL_STATE;
+
     default:
       return state;
   }
