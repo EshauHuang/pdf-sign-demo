@@ -3,6 +3,7 @@ import signPhoto from "@/assets/sign-photo.png";
 
 const INITIAL_STATE = {
   isLoading: false,
+  currentSignatureBox: "box-1",
   signatures: [
     {
       id: "box-1",

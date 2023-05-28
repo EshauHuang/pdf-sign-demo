@@ -1,4 +1,3 @@
-import { useRef, useEffect } from "react"
 import styled from "styled-components";
 
 import Button from "@/components/button/button.component";
@@ -19,27 +18,7 @@ const FontStyleList = styled.div`
   gap: 0.8rem;
 `;
 
-const PaintCanvas = styled.canvas`
-  border: 1px solid ${({theme}) => theme.colors.uiGrey};
-  width: 100%;
-  height: 16rem;
-  margin-top: 0.8rem;
-`
-
-const AddSign = () => {
-  const canvasRef = useRef(null)
-  
-  useEffect(() => {
-    if (!canvasRef.current) return
-
-    const canvas = canvasRef.current
-
-    canvas.width = canvas.clientWidth
-    canvas.height = canvas.clientHeight
-
-    
-  }, [canvasRef])
-
+const FontList = () => {
   return (
     <Container>
       <FontStyleList>
@@ -59,9 +38,8 @@ const AddSign = () => {
           </StyledButtonChen>
         </FontStyleItem>
       </FontStyleList>
-      <PaintCanvas ref={canvasRef}/>
     </Container>
   );
 };
 
-export default AddSign;
+export default FontList;

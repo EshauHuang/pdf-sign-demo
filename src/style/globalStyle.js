@@ -18,49 +18,49 @@ body {
   }
 
   @font-face {
-    font-family: 'Noto-Serif-TC';
+    font-family: 'Noto Serif TC';
     src: url("/font/NotoSerifTC-ExtraLight.otf") format("opentype");
     font-style: normal;
     font-weight: 200;
   }
 
   @font-face {
-    font-family: 'Noto-Serif-TC';
+    font-family: 'Noto Serif TC';
     src: url("/font/NotoSerifTC-Light.otf") format("opentype");
     font-style: normal;
     font-weight: 300;
   }
 
   @font-face {
-    font-family: 'Noto-Serif-TC';
+    font-family: 'Noto Serif TC';
     src: url("/font/NotoSerifTC-Regular.otf") format("opentype");
     font-style: normal;
     font-weight: 400;
   }
 
   @font-face {
-    font-family: 'Noto-Serif-TC';
+    font-family: 'Noto Serif TC';
     src: url("/font/NotoSerifTC-Medium.otf") format("opentype");
     font-style: normal;
     font-weight: 500;
   }
 
   @font-face {
-    font-family: 'Noto-Serif-TC';
+    font-family: 'Noto Serif TC';
     src: url("/font/NotoSerifTC-SemiBold.otf") format("opentype");
     font-style: normal;
     font-weight: 600;
   }
 
   @font-face {
-    font-family: 'Noto-Serif-TC';
+    font-family: 'Noto Serif TC';
     src: url("/font/NotoSerifTC-Bold.otf") format("opentype");
     font-style: normal;
     font-weight: 700;
   }
 
   @font-face {
-    font-family: 'Noto-Serif-TC';
+    font-family: 'Noto Serif TC';
     src: url("/font/NotoSerifTC-Bold.otf") format("opentype");
     font-style: normal;
     font-weight: 900;
@@ -69,7 +69,7 @@ body {
   margin: 0;
   height: 100%;
   font-size: 62.5%;
-  /* font-family: "Chenyuluoyan-Monospaced",  "Noto-Serif-TC"; */
+  font-family: "Chenyuluoyan-Monospaced",  "Noto Serif TC";
   font-family: 'Chenyuluoyan-Monospaced';
   font-weight: 400;
 }
@@ -197,14 +197,14 @@ export const GlobalStyle = createGlobalStyle`
   } */
 
   h1 {
-    font-family: 'Noto-Serif-TC';
+    font-family: 'Noto Serif TC';
     font-style: normal;
     font-size: 3.2rem;
     color: ${({ theme }) => theme.colors.darkGrey};
   }
 
   h2 {
-    font-family: 'Noto-Serif-TC';
+    font-family: 'Noto Serif TC';
     font-style: normal;
     font-weight: 700;
     font-size: 2.4rem;
@@ -212,14 +212,14 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   h3 {
-    font-family: 'Noto-Serif-TC';
+    font-family: 'Noto Serif TC';
     font-style: normal;
     font-size: 1.8rem;
     color: ${({ theme }) => theme.colors.darkGrey};
   }
 
   h4 {
-    font-family: 'Noto-Serif-TC';
+    font-family: 'Noto Serif TC';
     font-style: normal;
     font-weight: 700;
     font-size: 1.6rem;
@@ -227,7 +227,7 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   h5 {
-    font-family: 'Noto-Serif-TC';
+    font-family: 'Noto Serif TC';
     font-style: normal;
     font-weight: 700;
     font-size: 1.4rem;
@@ -235,7 +235,7 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   h6 {
-    font-family: 'Noto-Serif-TC';
+    font-family: 'Noto Serif TC';
     font-style: normal;
     font-weight: 400;
     font-size: 1.2rem;
@@ -243,7 +243,7 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   label {
-    font-family: 'Noto-Serif-TC';
+    font-family: 'Noto Serif TC';
     font-style: normal;
     font-weight: 700;
     font-size: 1.4rem;
@@ -251,7 +251,7 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   p {
-    font-family: "Noto-Serif-TC";
+    font-family: "Noto Serif TC";
     font-style: normal;
     font-weight: 400;
     font-size: 1.4rem;

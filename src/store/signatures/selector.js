@@ -7,3 +7,5 @@ export const selectSignatures = (state, id) => {
 
 export const selectSignaturesIsLoading = (state) =>
   state.signature.selectSignaturesIsLoading;
+
+export const selectCurrentSignatureBox = (state) => state.currentSignatureBox;

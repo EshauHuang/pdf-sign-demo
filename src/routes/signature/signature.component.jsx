@@ -66,7 +66,7 @@ const InvitedSignatures = () => {
 
   return (
     <Container>
-      <Title>邀請簽署人</Title>
+      {/* <Title>邀請簽署人</Title>
       <Link to="invite">
         <SvgButtonPos>
           <SvgButton component={<PersonAddIcon />} />
@@ -83,7 +83,7 @@ const InvitedSignatures = () => {
         setToggle={setIsDateLine}
         noActiveText="無期限"
         activeText="指定簽署期限"
-      />
+      /> */}
       <DragList />
     </Container>
   );
@@ -196,7 +196,7 @@ const SignatureSetting = ({ isDownloading, setIsDownloading }) => {
   return (
     <SignatureSettingContainer>
       <SignatureSettingTop>
-        <PersonalForm />
+        {/* <PersonalForm /> */}
         <MySignatures />
         <InvitedSignatures />
       </SignatureSettingTop>
