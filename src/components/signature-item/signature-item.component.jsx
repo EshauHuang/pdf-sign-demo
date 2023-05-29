@@ -55,10 +55,10 @@ const Text = styled.div`
   font-size: 4.2rem;
 `;
 
-const EditPart = styled.div``;
+const MoreVertButton = styled.div``;
 
-const SignatureItem = ({ item }) => {
-  const { name, email, photo, text, color, font } = item;
+const SignatureItem = ({ item, handleClickMoreVertButton }) => {
+  const { id, name, email, photo, text, color, font } = item;
 
   return (
     <Container>
@@ -88,13 +88,13 @@ const SignatureItem = ({ item }) => {
           </SignOwnerDetail>
         )}
       </Body>
-      <EditPart>
+      <MoreVertButton onClick={() => handleClickMoreVertButton()}>
         <SvgButton
           size="small"
           variant="secondary"
           component={<StyledMoreVertIcon />}
         />
-      </EditPart>
+      </MoreVertButton>
     </Container>
   );
 };

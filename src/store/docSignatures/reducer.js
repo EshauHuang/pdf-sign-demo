@@ -38,6 +38,12 @@ export const docSignaturesReducer = (state = INITIAL_STATE, action = {}) => {
     case DOC_SIGNATURES_ACTION_TYPES.DOC_SIGNATURES_INIT:
       return INITIAL_STATE;
 
+    case DOC_SIGNATURES_ACTION_TYPES.REMOVE_SIGNATURE_FROM_DOC:
+      return {
+        ...state,
+        signatures: payload,
+      };
+
     default:
       return state;
   }
