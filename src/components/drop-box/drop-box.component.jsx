@@ -61,9 +61,9 @@ export default function DropBox({ id, canvasRef }) {
       {currentDocSignatures &&
         currentDocSignatures.items.map((item, index) => (
           <DropItem
-            key={index}
+            key={`${id}/item-${item.id}`}
             item={item}
-            dropItemId={`${id}/item-${index + 1}`}
+            dropItemId={`${id}/item-${item.id}`}
           />
         ))}
     </StyledDropBox>

@@ -4,9 +4,18 @@ import { DOC_SIGNATURES_ACTION_TYPES } from "./types";
 const addSignatureItem = (docSignatures, dropTo, signatureItem) => {
   const newDocSignatures = docSignatures.map((signature) => {
     if (signature.id === dropTo) {
+      const counts = signature.items.length;
+      const lastId = counts === 0 ? 0 : signature.items[counts - 1].id;
+
       return {
         ...signature,
-        items: [...signature.items, signatureItem],
+        items: [
+          ...signature.items,
+          {
+            ...signatureItem,
+            id: lastId + 1,
+          },
+        ],
       };
     }
     return signature;
@@ -111,11 +120,9 @@ export const removeSignatureFromDocSignature = (docSignatures, id) => {
   const newDocSignatures = docSignatures.splice(0).map((docSignature) => {
     if (docSignature.id === docSignatureId) {
       // itemIndex doesn't have `0`
-      const removeItemIndex = Number(itemIndex) - 1;
-      const newItems = docSignature.items.slice(0);
-      newItems.splice(removeItemIndex, 1);
-
-      console.log({ newItems });
+      const newItems = docSignature.items
+        .slice(0)
+        .filter((item) => item.id !== Number(itemIndex));
 
       return {
         ...docSignature,

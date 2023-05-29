@@ -51,11 +51,10 @@ const DocumentShow = () => {
       (item) => Number(itemIndex) === item.id
     );
 
-    console.log({ newItem });
-
     dispatch(
       addSignatureToDoc(docSignaturesArray, dropTo, {
         ...newItem,
+        signatureId: `${dropTo}/${itemId}`,
         width,
         height,
         x,
