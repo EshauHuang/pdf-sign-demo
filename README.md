@@ -17,12 +17,15 @@
 ## 頁面介紹
 ### 首頁
 上傳 PDF 文件
-<img width="846" alt="home" src="https://github.com/EshauHuang/pdf-sign-demo/assets/52191824/48d614b0-81e2-4720-ad14-050916955dd5">
+
+<img width="846" alt="home" src="https://github.com/EshauHuang/pdf-sign-demo/assets/52191824/30377fe4-3005-45a0-9c6d-d1b1ae9d95e7">
 
 ### 簽名
 將簽名檔拖曳至 PDF 文件中，或是自行創建新的簽名檔，並按下一步下載 PDF
+
 ![sign](https://github.com/EshauHuang/pdf-sign-demo/assets/52191824/7d878b48-4b22-46b1-9d97-fe8abd0b4672)
 
 ### PDF
 簽名後的 PDF 檔
+
 ![pdf](https://github.com/EshauHuang/pdf-sign-demo/assets/52191824/952a6fa2-62eb-4704-b76e-3a2adf761b7b)
