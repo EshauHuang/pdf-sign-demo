@@ -178,8 +178,6 @@ const PopupBox = () => {
   const handleSubmitSignature = (e) => {
     e.preventDefault();
 
-    console.log({ currentSignatureBoxId, signaturesArray });
-
     if (signature) {
       dispatch(
         addSignature(currentSignatureBoxId, signaturesArray, {
@@ -209,8 +207,7 @@ const PopupBox = () => {
     }));
   };
 
-  useEffect(() => {
-  }, [])
+  useEffect(() => {}, []);
 
   return (
     <Container onSubmit={(e) => handleSubmitSignature(e)}>
@@ -304,10 +301,10 @@ const PopupBox = () => {
             <UploadSignature>
               <UploadButton>
                 <span>上傳圖檔</span>
-                <UploadFile type="file" />
+                <UploadFile type="file" accept="image/png, image/jpeg" />
               </UploadButton>
               <p>檔案大小 10 MB以內</p>
-              <p>檔案格式 jpg, pmg</p>
+              <p>檔案格式 JPG, PNG</p>
             </UploadSignature>
           )}
         </MiddlePart>

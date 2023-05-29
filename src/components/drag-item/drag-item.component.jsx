@@ -8,7 +8,7 @@ import SignatureItem from "@/components/signature-item/signature-item.component"
 
 import { StyleDragItem } from "./drag-item.style";
 
-const DragItem = ({ id, person }) => {
+const DragItem = ({ id, item }) => {
   const dispatch = useDispatch();
   const dragItemRef = useRef(null);
   const [isDraggable, setIsDraggable] = useState(false);
@@ -49,8 +49,7 @@ const DragItem = ({ id, person }) => {
       draggable={isDraggable}
       id={id}
       onMouseDown={(e) => {
-        let target =
-          e.target.closest(".handle")
+        let target = e.target.closest(".handle");
 
         if (target) {
           setIsDraggable(true);
@@ -60,7 +59,7 @@ const DragItem = ({ id, person }) => {
       onDragEnd={handleDragEnd}
       ref={dragItemRef}
     >
-      <SignatureItem person={person} />
+      <SignatureItem item={item} />
     </StyleDragItem>
   );
 };

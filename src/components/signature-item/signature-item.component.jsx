@@ -57,8 +57,8 @@ const Text = styled.div`
 
 const EditPart = styled.div``;
 
-const SignatureItem = ({ person }) => {
-  const { name, email, photo, text } = person;
+const SignatureItem = ({ item }) => {
+  const { name, email, photo, text, color, font } = item;
 
   return (
     <Container>
@@ -73,7 +73,14 @@ const SignatureItem = ({ person }) => {
         {photo ? (
           <SignPhoto src={signPhoto} draggable={false} />
         ) : text ? (
-          <Text>{text}</Text>
+          <Text
+            style={{
+              color,
+              fontFamily: font,
+            }}
+          >
+            {text}
+          </Text>
         ) : (
           <SignOwnerDetail>
             <SignOwnerName>{name}</SignOwnerName>

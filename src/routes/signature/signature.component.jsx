@@ -157,6 +157,7 @@ const SignatureSetting = ({ isDownloading, setIsDownloading }) => {
               62 * ratio
             );
           } else if (text) {
+            const { color, font } = signature;
             const {
               dataUrl: photo,
               width: photoWidth,
@@ -165,7 +166,8 @@ const SignatureSetting = ({ isDownloading, setIsDownloading }) => {
               text,
               style: {
                 fontSize: "4.2rem",
-                fontFamily: "Chenyuluoyan-Monospaced",
+                fontFamily: font,
+                color,
                 fontWeight: "400",
               },
             });

@@ -20,9 +20,9 @@ const DragList = () => {
 
   return (
     <Container>
-      {signatures.items.map((person, index) => (
-        <DragItemWrap key={person.id}>
-          <DragItem id={`${id}/item-${index + 1}`} person={person} />
+      {signatures.items.map((item, index) => (
+        <DragItemWrap key={item.id}>
+          <DragItem id={`${id}/item-${index + 1}`} item={item} />
         </DragItemWrap>
       ))}
     </Container>
