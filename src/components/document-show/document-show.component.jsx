@@ -14,7 +14,7 @@ import { selectPdfId } from "@/store/pdf/selector";
 
 import PdfViewer from "@/components/pdf-viewer/pdf-viewer.component";
 
-import fakeInvoice from "@/assets/FakeInvoice01.png";
+import fakeInvoice from "@/assets/fakeInvoice01.png";
 
 const DocumentContainer = styled.div`
   background-color: ${({ theme }) => theme.colors.lightGrey};

@@ -10,7 +10,7 @@ import {
 } from "@/store/docSignatures/action";
 import { selectDocSignatures } from "@/store/docSignatures/selector";
 
-import { ReactComponent as DeleteIcon } from "@/assets/icon/Delete.svg";
+import { ReactComponent as DeleteIcon } from "@/assets/icon/delete.svg";
 import { SvgButton } from "@/components/button/button.component";
 import SignatureItem from "@/components/signature-item/signature-item.component";
 
