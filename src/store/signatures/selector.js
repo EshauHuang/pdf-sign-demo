@@ -8,4 +8,13 @@ export const selectSignatures = (state, id) => {
 export const selectSignaturesIsLoading = (state) =>
   state.signature.selectSignaturesIsLoading;
 
-export const selectCurrentSignatureBox = (state) => state.currentSignatureBox;
+export const selectCurrentSignatureBoxId = (state) => {
+  return state.signature.currentSignatureBoxId;
+};
+
+export const selectCurrentSignaturesBox = (state) => {
+  const currentSignatureBoxId = state.signature.currentSignatureBoxId;
+  return state.signature.signatures.find(
+    (signature) => signature.id === currentSignatureBoxId
+  );
+};

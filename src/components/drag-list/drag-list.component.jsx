@@ -1,7 +1,10 @@
 import styled from "styled-components";
 import { useSelector } from "react-redux";
 
-import { selectSignatures } from "@/store/signatures/selector";
+import {
+  selectCurrentSignatureBoxId,
+  selectCurrentSignaturesBox,
+} from "@/store/signatures/selector";
 
 import DragItem from "@/components/drag-item/drag-item.component";
 
@@ -11,8 +14,10 @@ const DragItemWrap = styled.div`
   margin: 0.8rem 0;
 `;
 
-const DragList = ({ id = "box-1" }) => {
-  const signatures = useSelector((state) => selectSignatures(state, id));
+const DragList = () => {
+  const id = useSelector(selectCurrentSignatureBoxId);
+  const signatures = useSelector(selectCurrentSignaturesBox);
+
   return (
     <Container>
       {signatures.items.map((person, index) => (

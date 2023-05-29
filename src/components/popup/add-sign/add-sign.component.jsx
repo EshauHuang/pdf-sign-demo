@@ -1,9 +1,10 @@
 import styled from "styled-components";
 import { useRef, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import { addSignature } from "@/store/signatures/action";
+import { selectCurrentSignaturesBox } from "@/store/signatures/selector";
 
 import FontList from "@/components/font-list/font-list.component";
 import { SvgButton } from "@/components/button/button.component";
@@ -43,31 +44,52 @@ const InputSignatureWrap = styled.div`
 `;
 
 const InputSignature = styled.input`
+  position: relative;
   text-align: center;
   width: 100%;
+  padding: 1.2rem 9rem;
+  font-size: 2.2rem;
+  transition: border-bottom 0.2s ease-out;
+  color: ${({ fColor }) => fColor};
+  font-family: ${({ font }) => font};
   border-bottom: 1px solid ${({ theme }) => theme.colors.grey};
-  padding: 1.2rem 6rem;
-  font-size: 1.8rem;
-  color: ${({ theme, fColor }) => theme.colors[fColor]};
-  transition: border-bottom 0.2s ease;
+  line-height: 2.4rem;
 
   &:focus {
-    border-bottom: 1px solid black;
+    border-bottom-color: ${({ theme }) => theme.colors.primary};
   }
 
   &::placeholder {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     font-size: 1.8rem;
     color: ${({ theme }) => theme.colors.grey};
+    font-family: Noto Sans TC;
+    line-height: 2.4rem;
   }
 
   &:-ms-input-placeholder {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     font-size: 1.8rem;
     color: ${({ theme }) => theme.colors.grey};
+    font-family: Noto Sans TC;
+    line-height: 2.4rem;
   }
 
   &::-ms-input-placeholder {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     font-size: 1.8rem;
     color: ${({ theme }) => theme.colors.grey};
+    font-family: Noto Sans TC;
+    line-height: 2.4rem;
   }
 `;
 
@@ -123,22 +145,43 @@ import {
   StyledButton,
 } from "./add-sign.style";
 
+const colors = {
+  black: "black",
+  blue: "#0073EA",
+  red: "#D83A52",
+};
+
+const fonts = {
+  0: "Noto Sans TC",
+  1: "Noto Serif TC",
+  2: "Chenyuluoyan-Monospaced",
+};
+
 const PopupBox = () => {
+  const currentSignatureBox = useSelector(selectCurrentSignaturesBox);
+
   const dispatch = useDispatch();
   const canvasRef = useRef(null);
   const [signature, setSignature] = useState("");
   const [addSignatureState, setAddSignatureState] = useState({
     action: "input",
     color: "blue",
+    fontIndex: "0",
   });
 
-  const { action, color } = addSignatureState;
+  const { action, color, fontIndex } = addSignatureState;
 
   const handleSubmitSignature = (e) => {
     e.preventDefault();
 
     if (signature) {
-      console.log(addSignature());
+      console.log(
+        addSignature(currentSignatureBox, {
+          text: signature,
+          color: colors[color],
+          font: fonts[fontIndex],
+        })
+      );
     }
   };
 
@@ -152,6 +195,13 @@ const PopupBox = () => {
   useEffect(() => {
     setSignature("");
   }, [action]);
+
+  const handleChangeFontIndex = (fontIndex) => {
+    setAddSignatureState((prev) => ({
+      ...prev,
+      fontIndex,
+    }));
+  };
 
   return (
     <Container onSubmit={(e) => handleSubmitSignature(e)}>
@@ -188,7 +238,12 @@ const PopupBox = () => {
         </TitleWrap>
       </TitleList>
       <Body>
-        <FontList />
+        {action === "input" && (
+          <FontList
+            fontIndex={fontIndex}
+            handleChangeFontIndex={handleChangeFontIndex}
+          />
+        )}
         {/* <PaintCanvas ref={canvasRef} /> */}
 
         <MiddlePart>
@@ -197,7 +252,8 @@ const PopupBox = () => {
               <InputSignature
                 type="text"
                 placeholder="請在這裡輸入你的名字"
-                fColor={color}
+                fColor={colors[color]}
+                font={fonts[fontIndex]}
                 onChange={(e) => handleChangeSignatureByText(e)}
                 value={signature}
               />

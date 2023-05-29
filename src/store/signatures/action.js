@@ -13,5 +13,10 @@ export const fetchSignaturesSuccess = (signaturesArray) =>
 export const fetchSignaturesFailed = (error) =>
   createAction(SIGNATURES_ACTION_TYPES.FETCH_SIGNATURES_FAILED, error);
 
-export const addSignature = (signature) =>
-  createAction(SIGNATURES_ACTION_TYPES.ADD_SIGNATURE, signature);
+export const addSignature = (currentSignaturesBox, signature) => {
+  currentSignaturesBox.items.push({
+    ...signature,
+    id: currentSignaturesBox.items.length + 1,
+  });
+  return createAction(SIGNATURES_ACTION_TYPES.ADD_SIGNATURE, signature);
+};
