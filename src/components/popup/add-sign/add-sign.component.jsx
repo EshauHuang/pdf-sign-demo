@@ -4,7 +4,10 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 import { addSignature } from "@/store/signatures/action";
-import { selectCurrentSignaturesBox } from "@/store/signatures/selector";
+import {
+  selectCurrentSignatureBoxId,
+  selectSignatures,
+} from "@/store/signatures/selector";
 
 import FontList from "@/components/font-list/font-list.component";
 import { SvgButton } from "@/components/button/button.component";
@@ -158,7 +161,8 @@ const fonts = {
 };
 
 const PopupBox = () => {
-  const currentSignatureBox = useSelector(selectCurrentSignaturesBox);
+  const signaturesArray = useSelector(selectSignatures);
+  const currentSignatureBoxId = useSelector(selectCurrentSignatureBoxId);
 
   const dispatch = useDispatch();
   const canvasRef = useRef(null);
@@ -174,9 +178,11 @@ const PopupBox = () => {
   const handleSubmitSignature = (e) => {
     e.preventDefault();
 
+    console.log({ currentSignatureBoxId, signaturesArray });
+
     if (signature) {
-      console.log(
-        addSignature(currentSignatureBox, {
+      dispatch(
+        addSignature(currentSignatureBoxId, signaturesArray, {
           text: signature,
           color: colors[color],
           font: fonts[fontIndex],
@@ -202,6 +208,9 @@ const PopupBox = () => {
       fontIndex,
     }));
   };
+
+  useEffect(() => {
+  }, [])
 
   return (
     <Container onSubmit={(e) => handleSubmitSignature(e)}>
@@ -303,7 +312,12 @@ const PopupBox = () => {
           )}
         </MiddlePart>
         <ButtonWrap>
-          <StyledButton size="large" variant="primary" disabled={!signature}>
+          <StyledButton
+            type="submit"
+            size="large"
+            variant="primary"
+            disabled={!signature}
+          >
             儲存
           </StyledButton>
         </ButtonWrap>

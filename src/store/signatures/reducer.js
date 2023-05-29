@@ -57,6 +57,7 @@ export const signaturesReducer = (state = INITIAL_STATE, action = {}) => {
 
     case SIGNATURES_ACTION_TYPES.ADD_SIGNATURE:
       return {
+        ...state,
         signatures: payload,
       };
 
