@@ -126,63 +126,63 @@ html,
 body {
   @font-face {
     font-family: 'Chenyuluoyan-Monospaced';
-    src: url("/font/ChenYuluoyan-Thin-Monospaced.ttf") format("truetype");
+    src: url("/pdf-sign-domo/font/ChenYuluoyan-Thin-Monospaced.ttf") format("truetype");
     font-style: normal;
     font-weight: 400;
   }
 
   @font-face {
     font-family: 'Chenyuluoyan';
-    src: url("/font/ChenYuluoyan-Thin.ttf") format("truetype");
+    src: url("/pdf-sign-domo/font/ChenYuluoyan-Thin.ttf") format("truetype");
     font-style: normal;
     font-weight: 400;
   }
 
   @font-face {
     font-family: 'Noto Serif TC';
-    src: url("/font/NotoSerifTC-ExtraLight.otf") format("opentype");
+    src: url("/pdf-sign-domo/font/NotoSerifTC-ExtraLight.otf") format("opentype");
     font-style: normal;
     font-weight: 200;
   }
 
   @font-face {
     font-family: 'Noto Serif TC';
-    src: url("/font/NotoSerifTC-Light.otf") format("opentype");
+    src: url("/pdf-sign-domo/font/NotoSerifTC-Light.otf") format("opentype");
     font-style: normal;
     font-weight: 300;
   }
 
   @font-face {
     font-family: 'Noto Serif TC';
-    src: url("/font/NotoSerifTC-Regular.otf") format("opentype");
+    src: url("/pdf-sign-domo/font/NotoSerifTC-Regular.otf") format("opentype");
     font-style: normal;
     font-weight: 400;
   }
 
   @font-face {
     font-family: 'Noto Serif TC';
-    src: url("/font/NotoSerifTC-Medium.otf") format("opentype");
+    src: url("/pdf-sign-domo/font/NotoSerifTC-Medium.otf") format("opentype");
     font-style: normal;
     font-weight: 500;
   }
 
   @font-face {
     font-family: 'Noto Serif TC';
-    src: url("/font/NotoSerifTC-SemiBold.otf") format("opentype");
+    src: url("/pdf-sign-domo/font/NotoSerifTC-SemiBold.otf") format("opentype");
     font-style: normal;
     font-weight: 600;
   }
 
   @font-face {
     font-family: 'Noto Serif TC';
-    src: url("/font/NotoSerifTC-Bold.otf") format("opentype");
+    src: url("/pdf-sign-domo/font/NotoSerifTC-Bold.otf") format("opentype");
     font-style: normal;
     font-weight: 700;
   }
 
   @font-face {
     font-family: 'Noto Serif TC';
-    src: url("/font/NotoSerifTC-Bold.otf") format("opentype");
+    src: url("/pdf-sign-domo/font/NotoSerifTC-Bold.otf") format("opentype");
     font-style: normal;
     font-weight: 900;
   }
