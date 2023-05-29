@@ -1,4 +1,4 @@
-import styled from "styled-components"
+import styled from "styled-components";
 import { useEffect, useRef } from "react";
 import Draggable from "react-draggable";
 import { useSelector, useDispatch } from "react-redux";
@@ -24,7 +24,7 @@ const DropItem = ({ item, dropItemId }) => {
   const dispatch = useDispatch();
   const nodeRef = useRef(null);
   const contentRef = useRef(null);
-  const { x, y, ...person } = item;
+  const { x, y, ...dragItem } = item;
   const docSignatures = useSelector((state) => selectDocSignatures(state));
   useEffect(() => {
     const content = contentRef.current;
@@ -56,7 +56,7 @@ const DropItem = ({ item, dropItemId }) => {
           minWidth: "280px",
         }}
       >
-        <SignatureItem person={person} />
+        <SignatureItem item={dragItem} />
       </div>
     </Draggable>
   );
