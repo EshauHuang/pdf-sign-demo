@@ -218,6 +218,7 @@ const SignatureContainer = styled.div`
   display: flex;
   flex-direction: column;
   height: 100vh;
+  min-width: 115rem;
 `;
 
 const Signature = () => {

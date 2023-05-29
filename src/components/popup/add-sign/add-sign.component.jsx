@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { useRef, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 import { addSignature } from "@/store/signatures/action";
@@ -161,6 +161,7 @@ const fonts = {
 };
 
 const PopupBox = () => {
+  const navigate = useNavigate();
   const signaturesArray = useSelector(selectSignatures);
   const currentSignatureBoxId = useSelector(selectCurrentSignatureBoxId);
 
@@ -186,6 +187,7 @@ const PopupBox = () => {
           font: fonts[fontIndex],
         })
       );
+      navigate("/signature");
     }
   };
 
